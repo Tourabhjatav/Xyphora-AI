@@ -121,12 +121,23 @@ export function ChatBot() {
     setTimeout(() => handleSend(), 100)
   }
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = async () => {
     if (!userDetails.name || !userDetails.email || !userDetails.service) {
       return
     }
-    console.log("Lead captured:", userDetails)
-    setStep("success")
+    
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...userDetails, source: "chatbot" })
+      })
+      console.log("Lead captured:", userDetails)
+      setStep("success")
+    } catch (error) {
+      console.error("Failed to send email summary:", error)
+      alert("Something went wrong. Please try again.")
+    }
   }
 
   const handleInputChange = (field: keyof UserDetails, value: string) => {

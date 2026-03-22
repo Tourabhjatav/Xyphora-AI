@@ -10,10 +10,20 @@ import { Textarea } from "./ui/textarea"
 export function ContactSection() {
   const [formData, setFormData] = useState({ name: "", email: "", company: "", message: "" })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    alert("Thank you for your message! We'll get back to you within 24 hours.")
-    setFormData({ name: "", email: "", company: "", message: "" })
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, source: "contact-form" })
+      })
+      alert("Thank you for your message! We'll get back to you within 24 hours.")
+      setFormData({ name: "", email: "", company: "", message: "" })
+    } catch (error) {
+      console.error("Failed to send message:", error)
+      alert("Sorry, something went wrong. Please try again.")
+    }
   }
 
   return (

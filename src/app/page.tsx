@@ -28,9 +28,8 @@ const jsonLd = {
   },
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+1-555-123-4567",
     "contactType": "customer service",
-    "email": "hello@xyphora.ai",
+    "email": "Xyphora.ai@gmail.com",
     "availableLanguage": ["English"]
   },
   "sameAs": [
@@ -70,7 +69,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      
+
       <Navigation />
       <HeroSection />
       <ServicesSection />
