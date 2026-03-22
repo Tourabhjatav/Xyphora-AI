@@ -40,11 +40,11 @@ export function ContactSection() {
             <div className="space-y-6">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-xl gradient-purple-cyan flex items-center justify-center flex-shrink-0"><Mail className="w-5 h-5 text-white" /></div>
-                <div><h3 className="font-semibold mb-1">Email Us</h3><p className="text-muted-foreground">hello@xyphora.ai</p></div>
+                <div><h3 className="font-semibold mb-1">Email Us</h3><p className="text-muted-foreground">xyphora.ai@gmail.com</p></div>
               </div>
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-xl gradient-purple-cyan flex items-center justify-center flex-shrink-0"><Phone className="w-5 h-5 text-white" /></div>
-                <div><h3 className="font-semibold mb-1">Call Us</h3><p className="text-muted-foreground">+1 (555) 123-4567</p></div>
+                <div><h3 className="font-semibold mb-1">Call Us</h3><p className="text-muted-foreground">+91 7047636934</p></div>
               </div>
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-xl gradient-purple-cyan flex items-center justify-center flex-shrink-0"><Clock className="w-5 h-5 text-white" /></div>
