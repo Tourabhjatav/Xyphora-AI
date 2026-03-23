@@ -2,27 +2,52 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Mail, Phone, Clock, Twitter, Linkedin, Github, Send } from "lucide-react"
+import { Mail, Phone, Clock, Twitter, Linkedin, Github, Send, Loader2 } from "lucide-react"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
 
 export function ContactSection() {
   const [formData, setFormData] = useState({ name: "", email: "", company: "", message: "" })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitText, setSubmitText] = useState("Send Message")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    setIsSubmitting(true)
+    setSubmitText("Sending...")
+
     try {
-      await fetch("/api/contact", {
+      const form = new FormData();
+      form.append("access_key", "b72142e0-b7bb-4249-862f-1f74d6594cf6");
+      form.append("subject", `New Lead from Website Contact Form: ${formData.name}`);
+      form.append("from_name", "Xyphora Website");
+      form.append("replyto", formData.email);
+      form.append("Name", formData.name);
+      form.append("Email", formData.email);
+      form.append("Company", formData.company || "Not Provided");
+      form.append("Message", formData.message);
+
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, source: "contact-form" })
-      })
-      alert("Thank you for your message! We'll get back to you within 24 hours.")
-      setFormData({ name: "", email: "", company: "", message: "" })
+        body: form
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Success! Your message has been sent. We'll get back to you within 24 hours.")
+        setFormData({ name: "", email: "", company: "", message: "" })
+      } else {
+        alert("Error: " + data.message)
+      }
     } catch (error) {
       console.error("Failed to send message:", error)
-      alert("Sorry, something went wrong. Please try again.")
+      alert("Something went wrong. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+      setSubmitText("Send Message")
     }
   }
 
@@ -69,7 +94,23 @@ export function ContactSection() {
               </div>
               <div><label className="block text-sm font-medium mb-2">Company</label><Input placeholder="Your company name" value={formData.company} onChange={(e) => setFormData({ ...formData, company: e.target.value })} /></div>
               <div><label className="block text-sm font-medium mb-2">Message</label><Textarea placeholder="Tell us about your project..." rows={5} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} required /></div>
-              <Button type="submit" size="lg" className="w-full gradient-purple-cyan text-white hover:opacity-90">Send Message <Send className="ml-2 w-4 h-4" /></Button>
+              <Button
+                type="submit"
+                size="lg"
+                className="w-full gradient-purple-cyan text-white hover:opacity-90"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                    {submitText}
+                  </>
+                ) : (
+                  <>
+                    {submitText} <Send className="ml-2 w-4 h-4" />
+                  </>
+                )}
+              </Button>
             </form>
           </motion.div>
         </div>

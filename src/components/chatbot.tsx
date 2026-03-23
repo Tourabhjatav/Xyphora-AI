@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X, MessageCircle, Bot, Sparkles, Send, User, CheckCircle } from "lucide-react"
+import { X, MessageCircle, Bot, Sparkles, Send, User, CheckCircle, Loader2 } from "lucide-react"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 
@@ -32,15 +32,16 @@ export function ChatBot() {
   const [isOpen, setIsOpen] = useState(false)
   const [step, setStep] = useState<"chat" | "form" | "success">("chat")
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { 
-      id: "1", 
-      role: "bot", 
-      content: "Hi! Welcome to Xyphora AI. I'm here to help you with AI Development and Marketing services. What would you like to know?", 
-      timestamp: new Date() 
+    {
+      id: "1",
+      role: "bot",
+      content: "Hi! Welcome to Xyphora AI. I'm here to help you with AI Development and Marketing services. What would you like to know?",
+      timestamp: new Date()
     },
   ])
   const [input, setInput] = useState("")
   const [isTyping, setIsTyping] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [userDetails, setUserDetails] = useState<UserDetails>({
     name: "",
     email: "",
@@ -50,37 +51,37 @@ export function ChatBot() {
   })
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => { 
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }) 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages])
 
   const getBotResponse = (userMessage: string): string => {
     const lowerMessage = userMessage.toLowerCase()
-    
+
     if (lowerMessage.includes("service") || lowerMessage.includes("offer") || lowerMessage.includes("what do you")) {
       return "We offer TWO main service categories:\n\n🤖 AI DEVELOPMENT:\n   • AI Chatbots & Assistants\n   • Document Intelligence\n   • AI Search & RAG Systems\n   • AI-Powered Web Apps\n\n📢 MARKETING SERVICES:\n   • Influencer Marketing\n   • Social Media Management\n   • Digital Marketing\n   • Content Strategy\n\nWould you like to discuss a project? Click 'Get a Quote' to share your details!"
     }
-    
+
     if (lowerMessage.includes("influencer") || lowerMessage.includes("marketing") || lowerMessage.includes("campaign")) {
       return "📢 INFLUENCER MARKETING SERVICES:\n\nWe help brands connect with the right influencers:\n\n🔍 Influencer Research\n   Finding perfect influencers for your niche\n\n📱 Campaign Strategy\n   End-to-end campaign planning\n\n🤝 Outreach & Negotiation\n   We handle all communications\n\n📊 Performance Tracking\n   Real-time analytics and ROI reports\n\nWant to start a campaign? Click 'Get a Quote' below!"
     }
-    
+
     if (lowerMessage.includes("chatbot") || lowerMessage.includes("ai bot") || lowerMessage.includes("assistant")) {
       return "🤖 AI CHATBOT DEVELOPMENT:\n\nWe build custom AI chatbots:\n   • GPT-4 & Claude integration\n   • Custom training for your business\n   • Multi-language support\n   • CRM integrations\n   • 24/7 automated support\n\nWe create chatbots for:\n   • Customer support\n   • Lead generation\n   • Sales assistance\n   • Internal operations\n\nInterested? Click 'Get a Quote' to discuss your needs!"
     }
-    
+
     if (lowerMessage.includes("process") || lowerMessage.includes("work") || lowerMessage.includes("how do you")) {
       return "🔧 OUR PROCESS:\n\nStep 1: Free Consultation\n   We discuss your needs and goals\n\nStep 2: Detailed Proposal\n   Clear scope, timeline, and pricing\n\nStep 3: Development\n   Regular updates and demos\n\nStep 4: Launch & Support\n   Deployment and ongoing maintenance\n\nWe work in sprints with weekly updates!\n\nReady to start? Click 'Get a Quote'!"
     }
-    
+
     if (lowerMessage.includes("time") || lowerMessage.includes("long") || lowerMessage.includes("timeline")) {
       return "⏱️ PROJECT TIMELINES:\n\n🤖 AI PROJECTS:\n   • Basic Chatbot: 2-3 weeks\n   • Advanced AI: 4-6 weeks\n   • Enterprise Solutions: 8-16 weeks\n\n📢 MARKETING CAMPAIGNS:\n   • Campaign Setup: 1-2 weeks\n   • Full Execution: 2-4 weeks\n   • Ongoing Management: Continuous\n\nLet's discuss your project! Click 'Get a Quote'."
     }
-    
+
     if (lowerMessage.includes("contact") || lowerMessage.includes("reach") || lowerMessage.includes("call")) {
       return "📞 CONTACT US:\n\nEmail: hello@xyphora.ai\nPhone: +1 (555) 123-4567\n\nOr fill out our quick form by clicking 'Get a Quote' below, and we'll get back to you within 24 hours!\n\nWe're excited to work with you! 🚀"
     }
-    
+
     if (lowerMessage.includes("social") || lowerMessage.includes("instagram") || lowerMessage.includes("tiktok") || lowerMessage.includes("youtube")) {
       return "📱 SOCIAL MEDIA SERVICES:\n\nWe manage ALL platforms:\n   • Instagram\n   • TikTok\n   • YouTube\n   • Twitter/X\n   • LinkedIn\n   • Facebook\n\n🎯 OUR SERVICES:\n   • Content creation & posting\n   • Community engagement\n   • Growth strategy\n   • Analytics & reports\n\nNeed social media help? Click 'Get a Quote'!"
     }
@@ -88,35 +89,35 @@ export function ChatBot() {
     if (lowerMessage.includes("start") || lowerMessage.includes("begin") || lowerMessage.includes("hire")) {
       return "🚀 LET'S GET STARTED!\n\n1. Click 'Get a Quote' below\n2. Fill in your details\n3. We'll contact you within 24 hours\n4. Free consultation call\n5. Receive your custom proposal\n\nWe're excited to help grow your business!"
     }
-    
+
     return "Thanks for your interest! 🙌\n\nI can help you with:\n\n🤖 AI Development\n   • Chatbots & Assistants\n   • Document Processing\n   • AI Search Systems\n\n📢 Marketing Services\n   • Influencer Marketing\n   • Social Media\n   • Digital Marketing\n\nFor a detailed discussion, please click 'Get a Quote' below and share your contact details!"
   }
 
   const handleSend = async () => {
     if (!input.trim()) return
-    const userMessage: ChatMessage = { 
-      id: Date.now().toString(), 
-      role: "user", 
-      content: input, 
-      timestamp: new Date() 
+    const userMessage: ChatMessage = {
+      id: Date.now().toString(),
+      role: "user",
+      content: input,
+      timestamp: new Date()
     }
     setMessages((prev) => [...prev, userMessage])
     setInput("")
     setIsTyping(true)
-    
+
     setTimeout(() => {
-      const botResponse: ChatMessage = { 
-        id: (Date.now() + 1).toString(), 
-        role: "bot", 
-        content: getBotResponse(input), 
-        timestamp: new Date() 
+      const botResponse: ChatMessage = {
+        id: (Date.now() + 1).toString(),
+        role: "bot",
+        content: getBotResponse(input),
+        timestamp: new Date()
       }
       setMessages((prev) => [...prev, botResponse])
       setIsTyping(false)
     }, 1000)
   }
 
-  const handleQuickQuestion = (question: string) => { 
+  const handleQuickQuestion = (question: string) => {
     setInput(question)
     setTimeout(() => handleSend(), 100)
   }
@@ -125,18 +126,39 @@ export function ChatBot() {
     if (!userDetails.name || !userDetails.email || !userDetails.service) {
       return
     }
-    
+
+    setIsSubmitting(true)
+
     try {
-      await fetch("/api/contact", {
+      const form = new FormData();
+      form.append("access_key", "b72142e0-b7bb-4249-862f-1f74d6594cf6");
+      form.append("subject", `New Lead from AI Chatbot: ${userDetails.name}`);
+      form.append("from_name", "Xyphora Website");
+      form.append("replyto", userDetails.email);
+      form.append("Name", userDetails.name);
+      form.append("Email", userDetails.email);
+      form.append("Phone", userDetails.phone || "Not Provided");
+      form.append("Company", userDetails.company || "Not Provided");
+      form.append("Service", userDetails.service);
+
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...userDetails, source: "chatbot" })
-      })
-      console.log("Lead captured:", userDetails)
-      setStep("success")
+        body: form
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Lead captured:", userDetails)
+        setStep("success")
+      } else {
+        alert("Error: " + data.message)
+      }
     } catch (error) {
       console.error("Failed to send email summary:", error)
       alert("Something went wrong. Please try again.")
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -147,17 +169,16 @@ export function ChatBot() {
   return (
     <>
       {/* Chat Button */}
-      <motion.div 
-        className="fixed bottom-6 right-6 z-50" 
-        initial={{ scale: 0 }} 
-        animate={{ scale: 1 }} 
+      <motion.div
+        className="fixed bottom-6 right-6 z-50"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
         transition={{ delay: 1, type: "spring" }}
       >
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className={`w-16 h-16 rounded-full shadow-xl transition-all ${
-            isOpen ? "bg-muted-foreground hover:bg-muted-foreground/80" : "gradient-purple-cyan hover:opacity-90 hover:scale-105"
-          }`}
+          className={`w-16 h-16 rounded-full shadow-xl transition-all ${isOpen ? "bg-muted-foreground hover:bg-muted-foreground/80" : "gradient-purple-cyan hover:opacity-90 hover:scale-105"
+            }`}
         >
           {isOpen ? <X className="w-6 h-6 text-white mx-auto" /> : <MessageCircle className="w-6 h-6 text-white mx-auto" />}
         </button>
@@ -205,11 +226,10 @@ export function ChatBot() {
                           <Sparkles className="w-4 h-4 text-white" />
                         </div>
                       )}
-                      <div className={`max-w-[85%] p-3 rounded-2xl text-sm ${
-                        message.role === "user" 
-                          ? "bg-primary text-primary-foreground rounded-br-sm" 
-                          : "bg-muted text-foreground rounded-bl-sm"
-                      }`}>
+                      <div className={`max-w-[85%] p-3 rounded-2xl text-sm ${message.role === "user"
+                        ? "bg-primary text-primary-foreground rounded-br-sm"
+                        : "bg-muted text-foreground rounded-bl-sm"
+                        }`}>
                         <p className="whitespace-pre-line leading-relaxed">{message.content}</p>
                       </div>
                       {message.role === "user" && (
@@ -219,7 +239,7 @@ export function ChatBot() {
                       )}
                     </motion.div>
                   ))}
-                  
+
                   {isTyping && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-2 items-center">
                       <div className="w-8 h-8 rounded-full gradient-purple-cyan flex items-center justify-center">
@@ -254,7 +274,7 @@ export function ChatBot() {
 
                 {/* Get a Quote Button */}
                 <div className="p-4 border-t border-border bg-card">
-                  <Button 
+                  <Button
                     onClick={() => setStep("form")}
                     className="w-full gradient-purple-cyan text-white hover:opacity-90 mb-3"
                   >
@@ -288,6 +308,7 @@ export function ChatBot() {
                       value={userDetails.name}
                       onChange={(e) => handleInputChange("name", e.target.value)}
                       placeholder="Your name"
+                      disabled={isSubmitting}
                     />
                   </div>
                   <div>
@@ -297,6 +318,7 @@ export function ChatBot() {
                       value={userDetails.email}
                       onChange={(e) => handleInputChange("email", e.target.value)}
                       placeholder="your@email.com"
+                      disabled={isSubmitting}
                     />
                   </div>
                   <div>
@@ -305,6 +327,7 @@ export function ChatBot() {
                       value={userDetails.phone}
                       onChange={(e) => handleInputChange("phone", e.target.value)}
                       placeholder="+1 (555) 000-0000"
+                      disabled={isSubmitting}
                     />
                   </div>
                   <div>
@@ -313,6 +336,7 @@ export function ChatBot() {
                       value={userDetails.company}
                       onChange={(e) => handleInputChange("company", e.target.value)}
                       placeholder="Your company name"
+                      disabled={isSubmitting}
                     />
                   </div>
                   <div>
@@ -320,7 +344,8 @@ export function ChatBot() {
                     <select
                       value={userDetails.service}
                       onChange={(e) => handleInputChange("service", e.target.value)}
-                      className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm"
+                      className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm disabled:opacity-50"
+                      disabled={isSubmitting}
                     >
                       <option value="">Select a service</option>
                       <option value="AI Chatbot">AI Chatbot Development</option>
@@ -334,18 +359,27 @@ export function ChatBot() {
                     </select>
                   </div>
                   <div className="flex gap-2 pt-2">
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       onClick={() => setStep("chat")}
                       className="flex-1"
+                      disabled={isSubmitting}
                     >
                       Back
                     </Button>
-                    <Button 
+                    <Button
                       onClick={handleFormSubmit}
                       className="flex-1 gradient-purple-cyan text-white hover:opacity-90"
+                      disabled={isSubmitting}
                     >
-                      Submit
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                          Submitting...
+                        </>
+                      ) : (
+                        "Submit"
+                      )}
                     </Button>
                   </div>
                 </div>
@@ -365,7 +399,7 @@ export function ChatBot() {
                   📧 {userDetails.email}<br />
                   📱 {userDetails.phone || "No phone provided"}
                 </p>
-                <Button 
+                <Button
                   onClick={() => {
                     setStep("chat")
                     setUserDetails({ name: "", email: "", phone: "", company: "", service: "" })
