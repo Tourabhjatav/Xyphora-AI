@@ -41,6 +41,11 @@ const jsonLd = {
   "service": [
     {
       "@type": "Service",
+      "name": "Website Development",
+      "description": "Professional website developer services, creating fast, responsive, and SEO-optimized web applications."
+    },
+    {
+      "@type": "Service",
       "name": "AI Chatbot Development",
       "description": "Custom AI chatbots powered by GPT-4 and Claude for customer support, sales, and automation."
     },

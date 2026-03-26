@@ -18,11 +18,13 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   // Basic Meta
   title: {
-    default: "Xyphora AI | AI Development & Marketing Agency",
+    default: "Xyphora AI | AI Development, Website Developer & Marketing Agency",
     template: "%s | Xyphora AI",
   },
-  description: "Xyphora AI is a leading AI development and marketing agency. We build custom AI chatbots, document intelligence systems, and run influencer marketing campaigns. Transform your business with intelligent automation.",
+  description: "Xyphora AI is a leading AI development, website developer, and marketing agency. We build custom AI chatbots, responsive websites, document intelligence systems, and run influencer marketing campaigns.",
   keywords: [
+    "Website Developer",
+    "Web Development",
     "AI development",
     "AI chatbot",
     "influencer marketing",

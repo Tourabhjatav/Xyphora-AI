@@ -118,8 +118,8 @@ export function HeroSection() {
             variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }} 
             className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
           >
-            We build intelligent AI systems and run powerful marketing campaigns. 
-            From chatbots to influencer marketing — we help your business grow.
+            Top-tier Website Developer & Agency. We build intelligent AI systems, responsive modern websites, and run powerful marketing campaigns. 
+            From web development to AI chatbots — we help your business grow.
           </motion.p>
 
           {/* CTA Buttons */}
