@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Moon, Sun, Menu, X, Sparkles } from "lucide-react"
 import { useTheme } from "next-themes"
-import { Button } from "./ui/button"
+import { Button } from "@/components/ui/button"
 
 const navLinks = [
   { name: "Home", href: "#home" },

@@ -2,10 +2,10 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Mail, Phone, Clock, Twitter, Linkedin, Github, Send, Loader2 } from "lucide-react"
-import { Button } from "./ui/button"
-import { Input } from "./ui/input"
-import { Textarea } from "./ui/textarea"
+import { Mail, Clock, Twitter, Linkedin, Github, Send, Loader2 } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 
 export function ContactSection() {
   const [formData, setFormData] = useState({ name: "", email: "", company: "", message: "" })
@@ -66,10 +66,6 @@ export function ContactSection() {
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-xl gradient-purple-cyan flex items-center justify-center flex-shrink-0"><Mail className="w-5 h-5 text-white" /></div>
                 <div><h3 className="font-semibold mb-1">Email Us</h3><p className="text-muted-foreground">xyphora.ai@gmail.com</p></div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl gradient-purple-cyan flex items-center justify-center flex-shrink-0"><Phone className="w-5 h-5 text-white" /></div>
-                <div><h3 className="font-semibold mb-1">Call Us</h3><p className="text-muted-foreground">+91 7047636934</p></div>
               </div>
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-xl gradient-purple-cyan flex items-center justify-center flex-shrink-0"><Clock className="w-5 h-5 text-white" /></div>

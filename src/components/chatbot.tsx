@@ -3,8 +3,8 @@
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, MessageCircle, Bot, Sparkles, Send, User, CheckCircle, Loader2 } from "lucide-react"
-import { Button } from "./ui/button"
-import { Input } from "./ui/input"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 interface ChatMessage {
   id: string

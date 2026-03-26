@@ -12,6 +12,7 @@ import { AboutSection } from "../components/about-section"
 import { ContactSection } from "../components/contact-section"
 import { Footer } from "../components/footer"
 import { ChatBot } from "../components/chatbot"
+import { SplashScreen } from "../components/splash-screen"
 
 // JSON-LD Structured Data for SEO
 const jsonLd = {
@@ -64,6 +65,7 @@ const jsonLd = {
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-background">
+      <SplashScreen />
       {/* Structured Data */}
       <script
         type="application/ld+json"

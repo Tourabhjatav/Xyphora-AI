@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { CheckCircle, ChevronRight, Cpu, Sparkles, Code2, Database, Workflow, MessageSquare, Search, Globe, Megaphone, TrendingUp, Users, Share2 } from "lucide-react"
-import { Button } from "./ui/button"
+import { Button } from "@/components/ui/button"
 
 const techStack = [
   { name: "OpenAI GPT-4", icon: Sparkles, desc: "Language AI" },
