@@ -1,6 +1,7 @@
 "use client"
 
 import { Sparkles, Twitter, Linkedin, Github } from "lucide-react"
+import { Logo } from "./logo"
 
 export function Footer() {
   return (
@@ -9,7 +10,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg gradient-purple-cyan flex items-center justify-center"><Sparkles className="w-5 h-5 text-white" /></div>
+              <Logo size="md" />
               <span className="text-xl font-bold gradient-text">Xyphora AI</span>
             </div>
             <p className="text-muted-foreground mb-4 max-w-md">A new AI development startup passionate about building intelligent solutions. Intelligence Evolved.</p>

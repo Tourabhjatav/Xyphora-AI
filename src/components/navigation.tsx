@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { Moon, Sun, Menu, X, Sparkles } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
+import { Logo } from "./logo"
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -42,10 +43,8 @@ export function Navigation() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <a href="#home" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg gradient-purple-cyan flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-white" />
-            </div>
+          <a href="#home" className="flex items-center gap-3 group">
+            <Logo size="md" />
             <span className="text-xl font-bold gradient-text">Xyphora AI</span>
           </a>
 

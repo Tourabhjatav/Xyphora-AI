@@ -1,18 +1,20 @@
 "use client"
 
+import dynamic from "next/dynamic"
 import { Navigation } from "../components/navigation"
 import { HeroSection } from "../components/hero-section"
-import { ServicesSection } from "../components/services-section"
-import { ProcessSection } from "../components/process-section"
-import { IndustriesSection } from "../components/industries-section"
-import { TechStackSection } from "../components/tech-stack-section"
-import { WhyChooseUsSection } from "../components/why-choose-us-section"
-import { FAQSection } from "../components/faq-section"
-import { AboutSection } from "../components/about-section"
-import { ContactSection } from "../components/contact-section"
-import { Footer } from "../components/footer"
-import { ChatBot } from "../components/chatbot"
 import { SplashScreen } from "../components/splash-screen"
+
+const ServicesSection = dynamic(() => import("../components/services-section").then(mod => mod.ServicesSection))
+const ProcessSection = dynamic(() => import("../components/process-section").then(mod => mod.ProcessSection))
+const IndustriesSection = dynamic(() => import("../components/industries-section").then(mod => mod.IndustriesSection))
+const TechStackSection = dynamic(() => import("../components/tech-stack-section").then(mod => mod.TechStackSection))
+const WhyChooseUsSection = dynamic(() => import("../components/why-choose-us-section").then(mod => mod.WhyChooseUsSection))
+const FAQSection = dynamic(() => import("../components/faq-section").then(mod => mod.FAQSection))
+const AboutSection = dynamic(() => import("../components/about-section").then(mod => mod.AboutSection))
+const ContactSection = dynamic(() => import("../components/contact-section").then(mod => mod.ContactSection))
+const Footer = dynamic(() => import("../components/footer").then(mod => mod.Footer))
+const ChatBot = dynamic(() => import("../components/chatbot").then(mod => mod.ChatBot))
 
 // JSON-LD Structured Data for SEO
 const jsonLd = {

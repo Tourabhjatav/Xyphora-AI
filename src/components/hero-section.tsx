@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { ArrowRight, Mail, Sparkles, Bot, Megaphone, TrendingUp, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Logo } from "./logo"
 
 const benefits = [
   { icon: Bot, text: "AI Development" },
@@ -21,19 +22,22 @@ export function HeroSection() {
         
         {/* Sweeping Auroras / Glowing Orbs */}
         <motion.div 
-          className="absolute top-[5%] left-[10%] w-[500px] h-[500px] rounded-full bg-purple-600/20 blur-[100px]" 
-          animate={{ x: [0, 150, 0], y: [0, -100, 0], scale: [1, 1.3, 1] }} 
+          className="absolute top-[5%] left-[10%] w-[500px] h-[500px] rounded-full bg-purple-600/20 blur-[60px]" 
+          animate={{ x: [0, 100, 0], y: [0, -50, 0], scale: [1, 1.1, 1] }} 
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }} 
+          style={{ willChange: "transform" }}
+        />
+        <motion.div 
+          className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] rounded-full bg-cyan-600/20 blur-[80px]" 
+          animate={{ x: [0, -100, 0], y: [0, 50, 0], scale: [1, 1.2, 1] }} 
+          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }} 
+          style={{ willChange: "transform" }}
+        />
+        <motion.div 
+          className="absolute top-[40%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-pink-500/10 blur-[60px]" 
+          animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.5, 0.3], rotate: [0, 45, 0] }} 
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }} 
-        />
-        <motion.div 
-          className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] rounded-full bg-cyan-600/20 blur-[120px]" 
-          animate={{ x: [0, -150, 0], y: [0, 100, 0], scale: [1, 1.4, 1] }} 
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }} 
-        />
-        <motion.div 
-          className="absolute top-[40%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-pink-500/10 blur-[100px]" 
-          animate={{ scale: [1, 1.6, 1], opacity: [0.3, 0.7, 0.3], rotate: [0, 90, 0] }} 
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }} 
+          style={{ willChange: "transform" }}
         />
 
         {/* Floating Neural Nodes - Optimized for performance */}
@@ -98,7 +102,7 @@ export function HeroSection() {
           {/* Badge */}
           <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20">
-              <Sparkles className="w-4 h-4" />
+              <Logo size="sm" animated={false} className="shadow-none bg-transparent rounded-none" />
               AI Development & Marketing Agency
             </span>
           </motion.div>
@@ -164,8 +168,9 @@ export function HeroSection() {
         {/* Scroll Indicator */}
         <motion.div
           className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2.5, repeat: Infinity }}
+          style={{ willChange: "transform" }}
         >
           <div className="w-6 h-10 rounded-full border-2 border-muted-foreground/50 flex justify-center pt-2">
             <div className="w-1.5 h-3 rounded-full bg-primary" />

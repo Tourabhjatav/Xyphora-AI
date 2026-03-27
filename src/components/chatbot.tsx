@@ -173,7 +173,8 @@ export function ChatBot() {
         className="fixed bottom-6 right-6 z-50"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        transition={{ delay: 1, type: "spring" }}
+        transition={{ delay: 1, type: "spring", damping: 20 }}
+        style={{ willChange: "transform" }}
       >
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -188,12 +189,14 @@ export function ChatBot() {
       {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-6 z-50 w-[400px] max-w-[calc(100vw-3rem)] bg-card border border-border rounded-2xl shadow-2xl overflow-hidden"
-          >
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              style={{ willChange: "transform, opacity" }}
+              className="fixed bottom-24 right-6 z-50 w-[400px] max-w-[calc(100vw-3rem)] bg-card border border-border rounded-2xl shadow-2xl overflow-hidden"
+            >
             {/* Header */}
             <div className="gradient-purple-cyan p-4">
               <div className="flex items-center gap-3">

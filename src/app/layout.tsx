@@ -101,6 +101,18 @@ export const metadata: Metadata = {
   // Category
   category: "technology",
   
+  // Icons
+  icons: {
+    icon: [
+      { url: "/icon.png", type: "image/png" },
+      { url: "/favicon-v2.ico", sizes: "any" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", type: "image/png" },
+    ],
+  },
+  manifest: "/manifest.json",
+  
   // Other
   referrer: "origin-when-cross-origin",
   generator: "Next.js",
@@ -124,12 +136,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
-      </head>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"

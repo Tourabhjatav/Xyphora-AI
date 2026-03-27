@@ -150,20 +150,22 @@
 }
 
 .animate-float {
-  animation: float 6s ease-in-out infinite;
+  animation: float 10s ease-in-out infinite;
+  will-change: transform;
 }
 
 .animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
+  animation: pulse-glow 4s ease-in-out infinite;
+  will-change: opacity;
 }
 
 .animate-gradient-x {
-  animation: gradient-x 3s ease infinite;
+  animation: gradient-x 6s ease infinite;
   background-size: 200% 200%;
 }
 
 .animate-shimmer {
-  animation: shimmer 2s linear infinite;
+  animation: shimmer 3s linear infinite;
   background-size: 200% 100%;
 }
 

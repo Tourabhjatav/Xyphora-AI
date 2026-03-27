@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Sparkles, Terminal, CheckCircle2 } from "lucide-react"
+import { Logo } from "./logo"
 
 const searchSteps = [
   "Initializing neural pathways...",
@@ -59,9 +60,10 @@ export function SplashScreen() {
           {/* Animated Background */}
           <div className="absolute inset-0 neural-bg opacity-30">
             <motion.div 
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-purple-500/10 blur-[100px]" 
-              animate={{ scale: [0.9, 1.1, 0.9] }} 
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} 
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-purple-500/10 blur-[60px]" 
+              animate={{ scale: [0.95, 1.05, 0.95] }} 
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} 
+              style={{ willChange: "transform" }}
             />
           </div>
 
@@ -74,9 +76,7 @@ export function SplashScreen() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="flex items-center gap-4 mb-10"
             >
-              <div className="w-14 h-14 rounded-2xl gradient-purple-cyan flex items-center justify-center shadow-[0_0_30px_rgba(74,29,150,0.5)]">
-                <Sparkles className="w-7 h-7 text-white" />
-              </div>
+              <Logo size="lg" className="shadow-[0_0_30px_rgba(74,29,150,0.5)]" />
               <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
                 <span className="gradient-text">Xyphora</span> AI
               </h1>
