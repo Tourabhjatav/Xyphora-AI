@@ -17,13 +17,20 @@ const Footer = dynamic(() => import("../components/footer").then(mod => mod.Foot
 const ChatBot = dynamic(() => import("../components/chatbot").then(mod => mod.ChatBot))
 
 // JSON-LD Structured Data for SEO
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Xyphora AI",
-  "alternateName": "Xyphora",
-  "url": "https://xyphora-ai.vercel.app",
-  "logo": "https://xyphora-ai.vercel.app/logo.png",
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Xyphora AI",
+    "url": "https://xyphora-ai.vercel.app"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Xyphora AI",
+    "alternateName": "Xyphora",
+    "url": "https://xyphora-ai.vercel.app",
+    "logo": "https://xyphora-ai.vercel.app/logo.png",
   "description": "AI Development & Marketing Agency specializing in custom chatbots, document AI, and influencer marketing campaigns.",
   "address": {
     "@type": "PostalAddress",
@@ -68,6 +75,7 @@ const jsonLd = {
     }
   ]
 }
+];
 
 export default function HomePage() {
   return (
