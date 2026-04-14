@@ -118,6 +118,9 @@ export const metadata: Metadata = {
   referrer: "origin-when-cross-origin",
   generator: "Next.js",
   applicationName: "Xyphora AI",
+  other: {
+    "google-adsense-account": "ca-pub-9601701476836928",
+  },
   appleWebApp: {
     capable: true,
     title: "Xyphora AI",
