@@ -6,7 +6,7 @@ Use this checklist before moving the Xyphora AI website to production on Vercel.
 
 - Framework preset: `Next.js`
 - Install command: `npm ci`
-- Build command: `npm run validate && npm run check:prod`
+- Build command: `npm run validate`
 - Output directory: `.next`
 - Production branch: `main` or your chosen release branch
 
