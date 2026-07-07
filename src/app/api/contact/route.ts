@@ -349,7 +349,11 @@ export async function POST(request: NextRequest) {
   const accessKey = process.env.WEB3FORMS_ACCESS_KEY
 
   if (!accessKey) {
-    return json({ message: "Contact form is not configured." }, 500, limitHeaders)
+    return json(
+      { message: "Message service is not available. Please email us directly." },
+      503,
+      limitHeaders,
+    )
   }
 
   const form = new FormData()

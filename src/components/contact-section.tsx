@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { TurnstileWidget } from "@/components/turnstile-widget"
 import { cardReveal, fadeInLeft, fadeInRight, viewportOnce } from "@/lib/animations"
+import { getContactStatusMessage } from "@/lib/contact-errors"
 import { contactEmail } from "@/lib/site"
 
 const projectTypes = [
@@ -58,12 +59,12 @@ export function ContactSection() {
       const data = await response.json()
 
       if (response.ok) {
-        setStatusMessage("Success. Your message has been sent. We will get back to you within 24 hours.")
+        setStatusMessage(getContactStatusMessage(true, data.message))
         setFormData({ name: "", email: "", company: "", message: "" })
         setBotcheck("")
         setTurnstileToken("")
       } else {
-        setStatusMessage("Error: " + data.message)
+        setStatusMessage(getContactStatusMessage(false, data.message))
       }
     } catch (error) {
       console.error("Failed to send message:", error)

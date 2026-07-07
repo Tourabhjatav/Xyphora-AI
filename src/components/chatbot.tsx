@@ -6,6 +6,7 @@ import { X, MessageCircle, Bot, Sparkles, Send, User, CheckCircle, Loader2 } fro
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { TurnstileWidget } from "@/components/turnstile-widget"
+import { getContactStatusMessage } from "@/lib/contact-errors"
 import { contactEmail } from "@/lib/site"
 
 interface ChatMessage {
@@ -194,7 +195,7 @@ export function ChatBot() {
         setBotcheck("")
         setTurnstileToken("")
       } else {
-        setStatusMessage("Error: " + data.message)
+        setStatusMessage(getContactStatusMessage(false, data.message))
       }
     } catch (error) {
       console.error("Failed to send email summary:", error)
