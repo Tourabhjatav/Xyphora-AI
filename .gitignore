@@ -32,3 +32,5 @@ Thumbs.db
 codex-*.png
 codex-*.log
 *.tsbuildinfo
+
+.vercel
