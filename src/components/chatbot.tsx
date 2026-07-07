@@ -43,7 +43,6 @@ export function ChatBot() {
     },
   ])
   const [input, setInput] = useState("")
-  const [botcheck, setBotcheck] = useState("")
   const [isTyping, setIsTyping] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [statusMessage, setStatusMessage] = useState("")
@@ -171,12 +170,10 @@ export function ChatBot() {
         phone: userDetails.phone,
         company: userDetails.company,
         service: userDetails.service,
-        botcheck,
       })
 
       if (response.ok) {
         setStep("success")
-        setBotcheck("")
       } else {
         setStatusMessage(getContactStatusMessage(false, response.message))
       }
@@ -360,16 +357,6 @@ export function ChatBot() {
                       <option value="Other">Other</option>
                     </select>
                   </div>
-                  <input
-                    type="text"
-                    name="website"
-                    value={botcheck}
-                    onChange={(e) => setBotcheck(e.target.value)}
-                    className="hidden"
-                    tabIndex={-1}
-                    autoComplete="off"
-                    aria-hidden="true"
-                  />
                   {statusMessage && (
                     <p className="rounded-lg bg-muted px-3 py-2 text-sm text-muted-foreground">{statusMessage}</p>
                   )}
@@ -408,7 +395,6 @@ export function ChatBot() {
                   onClick={() => {
                     setStep("chat")
                     setUserDetails({ name: "", email: "", phone: "", company: "", service: "" })
-                    setBotcheck("")
                   }}
                   variant="outline"
                   className="w-full"

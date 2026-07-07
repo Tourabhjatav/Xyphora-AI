@@ -23,7 +23,6 @@ export function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitText, setSubmitText] = useState("Send Message")
   const [statusMessage, setStatusMessage] = useState("")
-  const [botcheck, setBotcheck] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -39,13 +38,11 @@ export function ContactSection() {
         email: formData.email,
         company: formData.company,
         message: formData.message,
-        botcheck,
       })
 
       if (response.ok) {
         setStatusMessage(getContactStatusMessage(true, response.message))
         setFormData({ name: "", email: "", company: "", message: "" })
-        setBotcheck("")
       } else {
         setStatusMessage(getContactStatusMessage(false, response.message))
       }
@@ -113,16 +110,6 @@ export function ContactSection() {
               </div>
               <div><label className="block text-sm font-medium mb-2">Company</label><Input placeholder="Your company name" value={formData.company} onChange={(e) => setFormData({ ...formData, company: e.target.value })} /></div>
               <div><label className="block text-sm font-medium mb-2">Message</label><Textarea placeholder="Tell us about your project..." rows={5} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} required /></div>
-              <input
-                type="text"
-                name="website"
-                value={botcheck}
-                onChange={(e) => setBotcheck(e.target.value)}
-                className="hidden"
-                tabIndex={-1}
-                autoComplete="off"
-                aria-hidden="true"
-              />
               <Button
                 type="submit"
                 size="lg"

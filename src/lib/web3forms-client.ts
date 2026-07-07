@@ -6,14 +6,9 @@ type Web3FormsLead = {
   company?: string
   service?: string
   message?: string
-  botcheck?: string
 }
 
 export async function submitWeb3FormsLead(lead: Web3FormsLead) {
-  if (lead.botcheck) {
-    return { ok: true, message: "Message sent." }
-  }
-
   const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
 
   if (!accessKey) {
@@ -29,6 +24,7 @@ export async function submitWeb3FormsLead(lead: Web3FormsLead) {
   form.append("from_name", "Xyphora Website")
   form.append("name", lead.name)
   form.append("email", lead.email)
+  form.append("replyto", lead.email)
   form.append("company", lead.company || "Not Provided")
 
   if (lead.phone) form.append("phone", lead.phone)
