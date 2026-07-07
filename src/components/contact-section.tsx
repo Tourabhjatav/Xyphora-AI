@@ -1,15 +1,15 @@
 "use client"
 
-import { useCallback, useState } from "react"
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { Mail, Clock, Send, Loader2, CheckCircle2, MessageSquareText, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { TurnstileWidget } from "@/components/turnstile-widget"
 import { cardReveal, fadeInLeft, fadeInRight, viewportOnce } from "@/lib/animations"
 import { getContactStatusMessage } from "@/lib/contact-errors"
 import { contactEmail } from "@/lib/site"
+import { submitWeb3FormsLead } from "@/lib/web3forms-client"
 
 const projectTypes = [
   "New business website",
@@ -24,15 +24,6 @@ export function ContactSection() {
   const [submitText, setSubmitText] = useState("Send Message")
   const [statusMessage, setStatusMessage] = useState("")
   const [botcheck, setBotcheck] = useState("")
-  const [turnstileToken, setTurnstileToken] = useState("")
-
-  const handleTurnstileVerify = useCallback((token: string) => {
-    setTurnstileToken(token)
-  }, [])
-
-  const handleTurnstileExpire = useCallback(() => {
-    setTurnstileToken("")
-  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -42,29 +33,21 @@ export function ContactSection() {
     setStatusMessage("")
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          source: "Website Contact Form",
-          name: formData.name,
-          email: formData.email,
-          company: formData.company,
-          message: formData.message,
-          botcheck,
-          turnstileToken,
-        }),
+      const response = await submitWeb3FormsLead({
+        source: "Website Contact Form",
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        message: formData.message,
+        botcheck,
       })
 
-      const data = await response.json()
-
       if (response.ok) {
-        setStatusMessage(getContactStatusMessage(true, data.message))
+        setStatusMessage(getContactStatusMessage(true, response.message))
         setFormData({ name: "", email: "", company: "", message: "" })
         setBotcheck("")
-        setTurnstileToken("")
       } else {
-        setStatusMessage(getContactStatusMessage(false, data.message))
+        setStatusMessage(getContactStatusMessage(false, response.message))
       }
     } catch (error) {
       console.error("Failed to send message:", error)
@@ -140,7 +123,6 @@ export function ContactSection() {
                 autoComplete="off"
                 aria-hidden="true"
               />
-              <TurnstileWidget onVerify={handleTurnstileVerify} onExpire={handleTurnstileExpire} />
               <Button
                 type="submit"
                 size="lg"

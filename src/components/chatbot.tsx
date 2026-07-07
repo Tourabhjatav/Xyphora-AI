@@ -1,13 +1,13 @@
 "use client"
 
-import { useCallback, useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, MessageCircle, Bot, Sparkles, Send, User, CheckCircle, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { TurnstileWidget } from "@/components/turnstile-widget"
 import { getContactStatusMessage } from "@/lib/contact-errors"
 import { contactEmail } from "@/lib/site"
+import { submitWeb3FormsLead } from "@/lib/web3forms-client"
 
 interface ChatMessage {
   id: string
@@ -44,7 +44,6 @@ export function ChatBot() {
   ])
   const [input, setInput] = useState("")
   const [botcheck, setBotcheck] = useState("")
-  const [turnstileToken, setTurnstileToken] = useState("")
   const [isTyping, setIsTyping] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [statusMessage, setStatusMessage] = useState("")
@@ -57,14 +56,6 @@ export function ChatBot() {
   })
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const messageIdRef = useRef(1)
-
-  const handleTurnstileVerify = useCallback((token: string) => {
-    setTurnstileToken(token)
-  }, [])
-
-  const handleTurnstileExpire = useCallback(() => {
-    setTurnstileToken("")
-  }, [])
 
   const createMessageId = () => {
     messageIdRef.current += 1
@@ -173,29 +164,21 @@ export function ChatBot() {
     setStatusMessage("")
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          source: "AI Chatbot",
-          name: userDetails.name,
-          email: userDetails.email,
-          phone: userDetails.phone,
-          company: userDetails.company,
-          service: userDetails.service,
-          botcheck,
-          turnstileToken,
-        }),
+      const response = await submitWeb3FormsLead({
+        source: "AI Chatbot",
+        name: userDetails.name,
+        email: userDetails.email,
+        phone: userDetails.phone,
+        company: userDetails.company,
+        service: userDetails.service,
+        botcheck,
       })
-
-      const data = await response.json()
 
       if (response.ok) {
         setStep("success")
         setBotcheck("")
-        setTurnstileToken("")
       } else {
-        setStatusMessage(getContactStatusMessage(false, data.message))
+        setStatusMessage(getContactStatusMessage(false, response.message))
       }
     } catch (error) {
       console.error("Failed to send email summary:", error)
@@ -387,7 +370,6 @@ export function ChatBot() {
                     autoComplete="off"
                     aria-hidden="true"
                   />
-                  <TurnstileWidget onVerify={handleTurnstileVerify} onExpire={handleTurnstileExpire} />
                   {statusMessage && (
                     <p className="rounded-lg bg-muted px-3 py-2 text-sm text-muted-foreground">{statusMessage}</p>
                   )}
@@ -427,7 +409,6 @@ export function ChatBot() {
                     setStep("chat")
                     setUserDetails({ name: "", email: "", phone: "", company: "", service: "" })
                     setBotcheck("")
-                    setTurnstileToken("")
                   }}
                   variant="outline"
                   className="w-full"

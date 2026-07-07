@@ -1,10 +1,6 @@
 const required = [
   "NEXT_PUBLIC_SITE_URL",
-  "WEB3FORMS_ACCESS_KEY",
-  "UPSTASH_REDIS_REST_URL",
-  "UPSTASH_REDIS_REST_TOKEN",
-  "NEXT_PUBLIC_TURNSTILE_SITE_KEY",
-  "TURNSTILE_SECRET_KEY",
+  "NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY",
 ]
 
 const missing = required.filter((name) => !process.env[name])

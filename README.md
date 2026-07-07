@@ -65,9 +65,10 @@ Before production deployment, configure the variables in `.env.example` in your 
 Required for production/VAPT:
 
 - `NEXT_PUBLIC_SITE_URL` and `SITE_URL` with the final HTTPS domain.
-- `WEB3FORMS_ACCESS_KEY` for contact form delivery.
-- `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` for distributed contact API rate limiting.
-- `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` for bot verification.
+- `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` for contact form delivery.
+- `WEB3FORMS_ACCESS_KEY` only if the internal server-side contact API is used.
+- `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` only if the internal server-side contact API is used.
+- `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` only if the internal server-side contact API is used.
 
 Run the checks before release:
 

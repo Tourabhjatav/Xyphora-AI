@@ -22,6 +22,7 @@ Production:
 NEXT_PUBLIC_SITE_URL=https://xyphora-ai.vercel.app
 SITE_URL=https://xyphora-ai.vercel.app
 WEB3FORMS_ACCESS_KEY=...
+NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=...
 UPSTASH_REDIS_REST_URL=...
 UPSTASH_REDIS_REST_TOKEN=...
 NEXT_PUBLIC_TURNSTILE_SITE_KEY=...
@@ -40,9 +41,9 @@ No custom domain is required. `https://xyphora-ai.vercel.app` can be your produc
 
 ## 3. External Services
 
-- Web3Forms: required for contact form delivery.
-- Upstash Redis: required for distributed rate limiting across Vercel serverless instances.
-- Cloudflare Turnstile: required for bot verification on public forms.
+- Web3Forms: required for contact form delivery. The free Web3Forms flow uses the public `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` from the browser.
+- Upstash Redis: optional for distributed server-side API rate limiting if the internal `/api/contact` route is used.
+- Cloudflare Turnstile: optional if the internal `/api/contact` route is used for server-verified bot checks.
 
 ## 4. Pre-Deploy Checks
 
