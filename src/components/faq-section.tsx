@@ -1,87 +1,90 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronDown, MessageCircle, Clock, Shield, CreditCard, Rocket } from "lucide-react"
+import { ChevronDown, MessageCircle, Clock, ShieldCheck, Code2, Globe } from "lucide-react"
 import { cardReveal, fadeUp, sectionHeader, viewportOnce } from "@/lib/animations"
 
 const faqCategories = [
   {
-    icon: Rocket,
-    title: "Getting Started",
+    icon: Globe,
+    title: "Web Engineering & Architecture",
     faqs: [
       {
-        q: "How do I get started with Xyphora AI?",
-        a: "Fill out the contact form or use the assistant. We review your goal, ask a few practical questions, then reply with the best next step for your website, AI, or marketing project.",
+        q: "Why do you build custom Next.js websites instead of WordPress or templates?",
+        a: "Custom Next.js & React builds deliver sub-second page loads, unmatched security (no vulnerable plugins), total design freedom, and 99+ Lighthouse performance scores that significantly outrank generic templates on search engines.",
       },
       {
-        q: "What information do you need to provide a quote?",
-        a: "For AI projects: describe your use case, expected users, and integration needs. For marketing: share your industry, target audience, and campaign goals. The more details you provide, the more accurate our quote will be.",
+        q: "Will my website look great and load fast on all mobile devices?",
+        a: "Yes. Every website and web application we engineer is built mobile-first with fluid responsive grids, optimized asset streaming, and touch-optimized micro-interactions.",
       },
       {
-        q: "Do you work with startups and small businesses?",
-        a: "Yes. We can start with a focused MVP, landing page, chatbot, or campaign plan, then expand once the first version proves useful.",
+        q: "Do you include search engine optimization (SEO) in website builds?",
+        a: "Yes. All web builds include semantic HTML5 structure, automated OpenGraph metadata, Schema.org JSON-LD structured data, XML sitemaps, and Core Web Vitals optimization.",
       },
     ],
   },
   {
-    icon: CreditCard,
-    title: "Pricing & Payment",
+    icon: Code2,
+    title: "AI Integration & Full-Stack Apps",
     faqs: [
       {
-        q: "What is your pricing structure?",
-        a: "Pricing depends on scope, integrations, timeline, and support needs. After discovery, we provide a clear quote with deliverables, timeline, and payment milestones.",
+        q: "How do custom AI chatbots and assistants work on my website?",
+        a: "We connect OpenAI / Claude LLMs with your private company documentation using Retrieval-Augmented Generation (RAG). The chatbot accurately answers questions, qualifies leads, and hands off inquiries to your team 24/7.",
       },
       {
-        q: "Do you require upfront payment?",
-        a: "Most projects use milestone-based payment so both sides have clear expectations. The exact structure is included in the proposal before work begins.",
+        q: "Can you build custom SaaS platforms, portals, and dashboards?",
+        a: "Yes. We engineer full-stack web applications with secure authentication, role-based permissions, PostgreSQL databases, real-time sync, and third-party payment integrations.",
       },
       {
-        q: "What payment methods do you accept?",
-        a: "We accept bank transfers, credit/debit cards, PayPal, and Wise for international clients. All payments are secured and you'll receive detailed invoices for your records.",
+        q: "Can you integrate our existing APIs, CRM, or payment systems?",
+        a: "Yes. We integrate Stripe, HubSpot, Supabase, Salesforce, custom REST/GraphQL endpoints, and automated webhook pipelines into your web product.",
       },
     ],
   },
   {
     icon: Clock,
-    title: "Timeline & Process",
+    title: "Timelines & Agile Sprints",
     faqs: [
       {
-        q: "How long does an AI chatbot project take?",
-        a: "A simple chatbot can be delivered quickly, while a custom assistant with integrations needs more planning and testing. We provide a realistic timeline after reviewing your content and workflow.",
+        q: "How long does a website or web app project take?",
+        a: "A high-performance business website typically takes 2–4 weeks. Complex full-stack web applications and custom SaaS portals take 4–8 weeks depending on scope.",
       },
       {
-        q: "How long do marketing campaigns take to launch?",
-        a: "Influencer outreach campaigns can start within 1-2 weeks. Full campaign strategy and execution typically takes 2-4 weeks to launch. Ongoing management continues for the campaign duration.",
+        q: "Will I be able to see progress while you build?",
+        a: "Yes. We work in agile weekly sprints. You receive private staging preview links so you can test features live and give feedback before each milestone.",
       },
       {
-        q: "Can you work with tight deadlines?",
-        a: "We can accommodate rush projects with dedicated resources. Rush fees may apply for expedited timelines. Let us know your deadline during consultation and we'll do our best to meet it.",
+        q: "Can you accommodate expedited launch deadlines?",
+        a: "Yes. For urgent product launches or time-sensitive events, we offer dedicated acceleration sprints to deliver on tight schedules.",
       },
     ],
   },
   {
-    icon: Shield,
-    title: "Support & Guarantees",
+    icon: ShieldCheck,
+    title: "Pricing, Hosting & Support",
     faqs: [
       {
-        q: "Do you provide ongoing support after project completion?",
-        a: "Yes. Projects include a post-launch support period for fixes and practical adjustments. Ongoing maintenance and optimization can be added when needed.",
+        q: "How does your pricing and payment structure work?",
+        a: "We offer transparent, fixed-scope milestone pricing. Payments are divided into clear deliverables (e.g. 50% upfront, 50% upon final staging signoff).",
       },
       {
-        q: "What if I'm not satisfied with the results?",
-        a: "We work with review points, demos, and clear approval steps so issues are caught early. If something misses the agreed scope, we revise it before launch.",
+        q: "Where will my website or app be hosted?",
+        a: "We deploy to high-availability global edge networks such as Vercel, AWS, or your organization's private cloud infrastructure with automated SSL and CI/CD.",
       },
       {
-        q: "How do you handle data privacy and security?",
-        a: "We take security seriously. All data is encrypted, we sign NDAs upon request, and we follow industry best practices. Your data is never shared or used for other clients. We can work within your compliance requirements.",
+        q: "Do you provide warranty and ongoing maintenance after launch?",
+        a: "Yes. Every build includes a post-launch warranty period for technical adjustments, bug fixes, and performance monitoring. Ongoing maintenance plans are also available.",
       },
     ],
   },
 ]
 
 export function FAQSection() {
-  const [openItems, setOpenItems] = useState<Record<string, boolean>>({})
+  const [openItems, setOpenItems] = useState<Record<string, boolean>>({
+    "0-0": true, // open first item by default for quick engagement
+  })
 
   const toggleItem = (categoryIndex: number, faqIndex: number) => {
     const key = `${categoryIndex}-${faqIndex}`
@@ -89,7 +92,7 @@ export function FAQSection() {
   }
 
   return (
-    <section id="faq" className="py-24 lg:py-32 bg-muted/30">
+    <section id="faq" className="py-24 lg:py-32 bg-muted/30 relative">
       <div className="max-w-4xl mx-auto px-6 lg:px-8">
         <motion.div 
           initial="hidden" 
@@ -100,21 +103,21 @@ export function FAQSection() {
         >
           <motion.span 
             variants={fadeUp}
-            className="inline-block px-4 py-2 rounded-lg bg-primary/10 text-primary text-sm font-medium mb-4"
+            className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-semibold mb-4 border border-primary/20"
           >
-            FAQ
+            Got Questions?
           </motion.span>
           <motion.h2 
             variants={fadeUp}
-            className="text-3xl lg:text-4xl font-bold mb-4"
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 tracking-tight"
           >
             Frequently Asked <span className="gradient-text">Questions</span>
           </motion.h2>
           <motion.p 
             variants={fadeUp}
-            className="text-muted-foreground text-lg max-w-2xl mx-auto"
+            className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
           >
-            Got questions? We have answers. If you do not find what you are looking for, chat with us!
+            Everything you need to know about our web build methodology, tech stacks, delivery timelines, and support.
           </motion.p>
         </motion.div>
 
@@ -122,33 +125,41 @@ export function FAQSection() {
           {faqCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={viewportOnce}
-              transition={{ delay: categoryIndex * 0.1, duration: 0.6 }}
+              transition={{ delay: categoryIndex * 0.08, duration: 0.5 }}
             >
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg gradient-purple-cyan flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl gradient-purple-cyan flex items-center justify-center shadow-md">
                   <category.icon className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="font-semibold text-lg">{category.title}</h3>
+                <h3 className="font-bold text-lg text-foreground">{category.title}</h3>
               </div>
 
-              <div className="space-y-3 ml-13">
+              <div className="space-y-3 sm:ml-12">
                 {category.faqs.map((faq, faqIndex) => {
-                  const isOpen = openItems[`${categoryIndex}-${faqIndex}`]
+                  const key = `${categoryIndex}-${faqIndex}`
+                  const isOpen = !!openItems[key]
+                  const contentId = `faq-content-${categoryIndex}-${faqIndex}`
+                  const buttonId = `faq-btn-${categoryIndex}-${faqIndex}`
+
                   return (
                     <motion.div
                       key={faq.q}
                       initial={false}
                       whileHover={{ y: -2 }}
-                      className="interactive-card rounded-lg bg-card border border-border overflow-hidden"
+                      className="interactive-card rounded-xl bg-card border border-border overflow-hidden shadow-sm transition-all"
                     >
                       <button
+                        id={buttonId}
+                        type="button"
+                        aria-expanded={isOpen}
+                        aria-controls={contentId}
                         onClick={() => toggleItem(categoryIndex, faqIndex)}
-                        className="w-full flex items-center justify-between p-4 text-left hover:bg-muted/50 transition-colors"
+                        className="w-full flex items-center justify-between p-4 sm:p-5 text-left hover:bg-muted/50 transition-colors"
                       >
-                        <span className="font-medium pr-4">{faq.q}</span>
+                        <span className="font-semibold text-sm sm:text-base pr-4 text-foreground">{faq.q}</span>
                         <motion.div
                           animate={{ rotate: isOpen ? 180 : 0 }}
                           transition={{ duration: 0.2 }}
@@ -157,15 +168,18 @@ export function FAQSection() {
                           <ChevronDown className="w-5 h-5 text-muted-foreground" />
                         </motion.div>
                       </button>
-                      <AnimatePresence>
+                      <AnimatePresence initial={false}>
                         {isOpen && (
                           <motion.div
+                            id={contentId}
+                            role="region"
+                            aria-labelledby={buttonId}
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.2 }}
+                            transition={{ duration: 0.25, ease: "easeOut" }}
                           >
-                            <div className="px-4 pb-4 text-muted-foreground text-sm leading-relaxed">
+                            <div className="px-4 sm:px-5 pb-5 text-muted-foreground text-sm leading-relaxed border-t border-border/40 pt-3">
                               {faq.a}
                             </div>
                           </motion.div>
@@ -183,22 +197,22 @@ export function FAQSection() {
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          transition={{ delay: 0.4, duration: 0.6 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
           variants={cardReveal}
-          className="animated-border text-center mt-12 p-6 rounded-lg bg-card border border-border"
+          className="animated-border text-center mt-14 p-8 rounded-2xl bg-card border border-border shadow-md"
         >
           <MessageCircle className="w-12 h-12 text-primary mx-auto mb-4" />
-          <h3 className="font-semibold text-lg mb-2">Still have questions?</h3>
-          <p className="text-muted-foreground mb-4">
-            Chat with our AI assistant or schedule a free consultation call.
+          <h3 className="font-bold text-xl mb-2 text-foreground">Have a specific technical question?</h3>
+          <p className="text-muted-foreground text-sm sm:text-base mb-6 max-w-md mx-auto">
+            Our engineering team is here to help. Reach out directly or start an instant chat.
           </p>
-          <div className="flex flex-wrap gap-3 justify-center">
-            <a 
-              href="#contact" 
-              className="shine-button px-6 py-2.5 rounded-lg gradient-animated text-white font-medium hover:opacity-95 transition-opacity"
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link 
+              href="/#contact" 
+              className="shine-button px-8 py-3 rounded-xl gradient-animated text-white font-semibold hover:opacity-95 transition-opacity shadow-md"
             >
-              Contact Us
-            </a>
+              Get In Touch
+            </Link>
           </div>
         </motion.div>
       </div>

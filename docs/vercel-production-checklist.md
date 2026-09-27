@@ -70,15 +70,40 @@ After Vercel deployment:
 - Submit 6 invalid contact requests from the same IP and confirm the 6th returns `429`.
 - Confirm the response headers include `Content-Security-Policy`, `Strict-Transport-Security`, `X-Frame-Options`, and `X-Content-Type-Options`.
 
-## 6. VAPT Notes
+## 6. VAPT & Security Hardening
 
-The contact API now enforces:
+The contact API and Next.js configuration enforce:
 
-- Same-origin POST requests.
-- `application/json` only.
-- Request body size limit.
-- Distributed rate limiting when Upstash env vars are configured.
-- Honeypot field.
-- Turnstile bot verification when Turnstile env vars are configured.
-- Upstream timeout for the Web3Forms call.
-- No-store API responses.
+- Strict Origin & Referer verification with `sec-fetch-site: cross-site` blocking.
+- `application/json` Content-Type validation.
+- Request body size limit (10 KB max).
+- Distributed rate limiting (Upstash Redis) with in-memory fallback capped at 5,000 IPs to prevent memory exhaustion DoS.
+- Honeypot bot trap field (`botcheck`).
+- Cloudflare Turnstile human verification when configured.
+- Upstream timeout (8s) for external form delivery.
+- Comprehensive HTTP Security Headers:
+  - `Content-Security-Policy` (CSP)
+  - `Strict-Transport-Security` (HSTS) with preload
+  - `X-Frame-Options: DENY` (Clickjacking prevention)
+  - `X-Content-Type-Options: nosniff` (MIME sniffing prevention)
+  - `Referrer-Policy: strict-origin-when-cross-origin`
+  - `Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()`
+  - `Cross-Origin-Opener-Policy: same-origin`
+  - `Cross-Origin-Resource-Policy: same-origin`
+  - `X-Permitted-Cross-Domain-Policies: none`
+  - `X-Download-Options: noopen`
+  - `Origin-Agent-Cluster: ?1`
+- Input sanitization against HTML injection, stored XSS, and CRLF email header injection.
+- Explicit 405 Method Not Allowed responses for unsupported verbs (`GET`, `PUT`, `DELETE`, `PATCH`).
+
+## 7. DPDP Act 2023 Compliance
+
+The platform complies with India's Digital Personal Data Protection Act, 2023:
+
+- **Section 5 (Notice):** Explicit, plain-language privacy notice itemizing all personal data collected and specific processing purposes at `/privacy`.
+- **Section 6 (Consent):** Affirmative consent checkboxes implemented across both the Website Contact Form and AI Assistant Drawer before data transmission.
+- **Section 6(4) (Withdrawal):** Documented right and email mechanism to withdraw consent at any time.
+- **Sections 11–14 (Data Principal Rights):** Explicit disclosures regarding right to access, correction, erasure, grievance redressal, and nomination.
+- **Section 8 (Data Fiduciary Obligations):** Designated Data Protection & Grievance Officer with 30-day response SLA, purpose limitation, and storage limitation.
+- **Section 9 (Children's Data):** Explicit business-only scope declaring no intentional processing or behavioral tracking of minors under 18 years.
+- **Consent Banner:** Interactive, non-intrusive cookie and data notice banner mounted across all pages.

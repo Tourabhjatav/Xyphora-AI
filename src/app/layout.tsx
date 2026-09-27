@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next"
 import "./globals.css"
 import { ThemeProvider } from "../components/theme-provider"
+import { SplashScreen } from "../components/splash-screen"
+import { ConsentBanner } from "../components/consent-banner"
 import { siteUrl } from "@/lib/site"
 
 export const viewport: Viewport = {
@@ -16,25 +18,23 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   // Basic Meta
   title: {
-    default: "Xyphora AI | Websites, Mobile Apps & AI-Driven Solutions",
+    default: "Xyphora AI | Premium Websites, Web Applications & AI Solutions",
     template: "%s | Xyphora AI",
   },
-  description: "Xyphora AI builds US-standard websites, mobile applications, AI chatbots, and AI-driven automation systems with attractive UI, user-friendly UX, and SEO-ready structure.",
+  description: "Xyphora AI engineers ultra-fast, US-standard websites, custom full-stack web applications, SaaS dashboards, and intelligent AI chatbots designed to scale.",
   keywords: [
-    "website development agency",
-    "mobile application development",
-    "AI driven solutions",
-    "AI app development",
-    "US standard website design",
-    "website developer",
-    "AI chatbot development",
-    "business automation",
-    "digital marketing agency",
-    "influencer marketing",
-    "lead generation website",
-    "AI automation agency",
-    "conversion website design",
-    "user friendly web design",
+    "custom website development",
+    "web application development",
+    "Next.js web development agency",
+    "full stack web development",
+    "AI chatbot engineering",
+    "SaaS dashboard development",
+    "responsive UI UX design",
+    "US standard website development",
+    "business workflow automation",
+    "customer portal development",
+    "TypeScript React developers",
+    "high performance websites",
   ],
   authors: [{ name: "Xyphora AI" }],
   creator: "Xyphora AI",
@@ -65,14 +65,14 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "Xyphora AI",
-    title: "Xyphora AI | Websites, Mobile Apps & AI-Driven Solutions",
-    description: "US-standard websites, mobile applications, AI chatbots, and automation systems with attractive UI and SEO-ready structure.",
+    title: "Xyphora AI | Premium Websites, Web Applications & AI Solutions",
+    description: "Ultra-fast US-standard websites, custom web applications, SaaS dashboards, and AI chatbots engineered for conversion and scalability.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Xyphora AI - Intelligence Evolved",
+        alt: "Xyphora AI - Next-Gen Web Architecture & AI Engineering",
       },
     ],
   },
@@ -80,8 +80,8 @@ export const metadata: Metadata = {
   // Twitter
   twitter: {
     card: "summary_large_image",
-    title: "Xyphora AI | Websites, Mobile Apps & AI-Driven Solutions",
-    description: "US-standard websites, mobile applications, AI chatbots, and automation systems with attractive UI and SEO-ready structure.",
+    title: "Xyphora AI | Premium Websites, Web Applications & AI Solutions",
+    description: "Ultra-fast US-standard websites, custom web applications, SaaS dashboards, and AI chatbots engineered for conversion and scalability.",
     images: ["/og-image.png"],
   },
   
@@ -130,6 +130,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <SplashScreen />
+          <ConsentBanner />
           {children}
         </ThemeProvider>
       </body>

@@ -38,8 +38,6 @@
     "**/*.tsx"
   ],
   "exclude": [
-    "node_modules",
-    ".backup",
-    "ui-components"
+    "node_modules"
   ]
 }

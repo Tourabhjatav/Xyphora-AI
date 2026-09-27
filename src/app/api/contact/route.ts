@@ -5,6 +5,8 @@ import { NextRequest, NextResponse } from "next/server"
 export const runtime = "nodejs"
 export const maxDuration = 10
 
+const isDev = process.env.NODE_ENV !== "production"
+
 type ContactPayload = {
   source?: string
   name?: string
@@ -13,6 +15,7 @@ type ContactPayload = {
   company?: string
   service?: string
   message?: string
+  consent?: boolean
   botcheck?: string
   turnstileToken?: string
 }
@@ -33,6 +36,7 @@ const rateLimitWindowSeconds = Number(process.env.CONTACT_RATE_LIMIT_WINDOW_SECO
 const maxRequestsPerWindow = Number(process.env.CONTACT_RATE_LIMIT_MAX || 5)
 const requestBodyLimitBytes = Number(process.env.CONTACT_BODY_LIMIT_BYTES || 10_000)
 const upstreamTimeoutMs = Number(process.env.CONTACT_UPSTREAM_TIMEOUT_MS || 8_000)
+const MAX_RATE_LIMIT_STORE_ENTRIES = 5_000
 
 const rateLimitStore = new Map<string, { count: number; resetAt: number }>()
 let nextRateLimitCleanupAt = Date.now() + rateLimitWindowSeconds * 1000
@@ -54,40 +58,59 @@ const distributedRateLimit = redis
   : null
 
 function json(
-  body: { message: string },
+  body: { message?: string; error?: string; success?: boolean },
   status = 200,
   headers: HeadersInit = {},
 ) {
-  return NextResponse.json(body, {
-    status,
-    headers: {
-      "Cache-Control": "no-store",
-      ...headers,
+  const isOk = status >= 200 && status < 300
+  return NextResponse.json(
+    {
+      success: isOk,
+      message: body.message || (isOk ? "Message sent successfully." : "An error occurred."),
+      error: !isOk ? (body.error || body.message || "An error occurred.") : undefined,
+      ...body,
     },
-  })
+    {
+      status,
+      headers: {
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff",
+        ...headers,
+      },
+    },
+  )
 }
 
-function getClientIp(request: NextRequest) {
-  return request.headers.get("cf-connecting-ip")
-    || request.headers.get("x-vercel-forwarded-for")?.split(",")[0]?.trim()
+function getClientIp(request: NextRequest): string {
+  const rawIp = request.headers.get("x-vercel-forwarded-for")?.split(",")[0]?.trim()
+    || request.headers.get("cf-connecting-ip")
     || request.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
     || request.headers.get("x-real-ip")
     || "unknown"
+
+  // Sanitize IP format to prevent log/store injection
+  return /^[a-fA-F0-9:.]+$/.test(rawIp) ? rawIp.slice(0, 45) : "unknown"
 }
 
-function normalizeOrigin(value: string | null | undefined) {
+function normalizeOrigin(value: string | null | undefined): string {
   if (!value) return ""
 
   try {
-    return new URL(value).origin
+    return new URL(value).origin.toLowerCase()
   } catch {
     return ""
   }
 }
 
-function isAllowedOrigin(request: NextRequest) {
+function isAllowedOrigin(request: NextRequest): boolean {
+  // Reject cross-site metadata if provided by browser
+  const secFetchSite = request.headers.get("sec-fetch-site")
+  if (secFetchSite === "cross-site") {
+    return false
+  }
+
   const requestOrigin = request.headers.get("origin")
-  if (!requestOrigin) return true
+  const referer = request.headers.get("referer")
 
   const allowedOrigins = new Set(
     [
@@ -98,16 +121,30 @@ function isAllowedOrigin(request: NextRequest) {
     ].filter(Boolean),
   )
 
-  return allowedOrigins.has(normalizeOrigin(requestOrigin))
+  if (requestOrigin) {
+    return allowedOrigins.has(normalizeOrigin(requestOrigin))
+  }
+
+  if (referer) {
+    return allowedOrigins.has(normalizeOrigin(referer))
+  }
+
+  // Allow non-browser / direct API calls only in development
+  return isDev
 }
 
-function cleanExpiredRateLimits(now: number) {
-  if (now < nextRateLimitCleanupAt) return
+function cleanExpiredRateLimits(now: number, force = false) {
+  if (!force && now < nextRateLimitCleanupAt && rateLimitStore.size < MAX_RATE_LIMIT_STORE_ENTRIES) return
 
   for (const [ip, entry] of rateLimitStore) {
     if (entry.resetAt <= now) {
       rateLimitStore.delete(ip)
     }
+  }
+
+  // Prevent memory exhaustion attacks: clear store if abnormally oversized
+  if (rateLimitStore.size >= MAX_RATE_LIMIT_STORE_ENTRIES) {
+    rateLimitStore.clear()
   }
 
   nextRateLimitCleanupAt = now + rateLimitWindowSeconds * 1000
@@ -166,13 +203,38 @@ function rateLimitHeaders(rateLimit: RateLimitResult): HeadersInit {
   }
 }
 
-function clean(value: unknown, maxLength: number) {
-  if (typeof value !== "string") return ""
-  return value.replace(/[\u0000-\u001f\u007f]/g, "").trim().slice(0, maxLength)
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;")
 }
 
-function isEmail(value: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+function cleanSingleLine(value: unknown, maxLength: number): string {
+  if (typeof value !== "string") return ""
+  return escapeHtml(
+    value
+      .replace(/[\u0000-\u001f\u007f]/g, "")
+      .replace(/[\r\n]+/g, " ")
+      .trim()
+      .slice(0, maxLength)
+  )
+}
+
+function cleanMultiline(value: unknown, maxLength: number): string {
+  if (typeof value !== "string") return ""
+  return escapeHtml(
+    value
+      .replace(/[\u0000-\u0009\u000b\u000c\u000e-\u001f\u007f]/g, "")
+      .trim()
+      .slice(0, maxLength)
+  )
+}
+
+function isEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) && value.length <= 120
 }
 
 async function readJsonPayload(request: NextRequest, headers: HeadersInit) {
@@ -200,7 +262,7 @@ async function readJsonPayload(request: NextRequest, headers: HeadersInit) {
   } catch {
     return {
       ok: false as const,
-      response: json({ message: "Invalid request." }, 400, headers),
+      response: json({ message: "Invalid request format." }, 400, headers),
     }
   }
 }
@@ -302,20 +364,30 @@ export async function POST(request: NextRequest) {
 
   const payload = parsed.payload
 
+  // Honeypot bot protection
   if (payload.botcheck) {
     return json({ message: "Message sent." }, 200, limitHeaders)
   }
 
-  const source = clean(payload.source, 40) === "AI Chatbot"
-    ? "AI Chatbot"
-    : "Website Contact Form"
-  const name = clean(payload.name, 80)
-  const email = clean(payload.email, 120)
-  const phone = clean(payload.phone, 40)
-  const company = clean(payload.company, 100)
-  const service = clean(payload.service, 100)
-  const message = clean(payload.message, 2_000)
-  const turnstileToken = clean(payload.turnstileToken, 2_048)
+  // Statutory DPDP Act Consent Check
+  if (!payload.consent) {
+    return json(
+      { message: "Explicit consent under the DPDP Act 2023 is required to submit personal contact data." },
+      400,
+      limitHeaders,
+    )
+  }
+
+  const rawSource = cleanSingleLine(payload.source, 60)
+  const isChatbot = rawSource.toLowerCase().includes("chatbot") || rawSource.toLowerCase().includes("assistant")
+  const source = isChatbot ? (rawSource || "AI Chatbot") : "Website Contact Form"
+  const name = cleanSingleLine(payload.name, 80)
+  const email = cleanSingleLine(payload.email, 120)
+  const phone = cleanSingleLine(payload.phone, 40)
+  const company = cleanSingleLine(payload.company, 100)
+  const service = cleanSingleLine(payload.service, 100)
+  const message = cleanMultiline(payload.message, 2_000)
+  const turnstileToken = cleanSingleLine(payload.turnstileToken, 2_048)
 
   const turnstile = await verifyTurnstile(turnstileToken, ip)
   if (!turnstile.ok) {
@@ -324,23 +396,23 @@ export async function POST(request: NextRequest) {
 
   if (!name || !email || !isEmail(email)) {
     return json(
-      { message: "Please provide a valid name and email." },
+      { message: "Please provide a valid name and email address." },
       400,
       limitHeaders,
     )
   }
 
-  if (source !== "AI Chatbot" && !message) {
+  if (!isChatbot && !message) {
     return json(
-      { message: "Please add a project message." },
+      { message: "Please provide your project description." },
       400,
       limitHeaders,
     )
   }
 
-  if (source === "AI Chatbot" && !service) {
+  if (isChatbot && !service && !message) {
     return json(
-      { message: "Please select a service." },
+      { message: "Please select an engineering service or provide a message." },
       400,
       limitHeaders,
     )
@@ -350,7 +422,7 @@ export async function POST(request: NextRequest) {
 
   if (!accessKey) {
     return json(
-      { message: "Message service is not available. Please email us directly." },
+      { message: "Message service is not configured. Please contact us directly by email." },
       503,
       limitHeaders,
     )
@@ -358,12 +430,13 @@ export async function POST(request: NextRequest) {
 
   const form = new FormData()
   form.append("access_key", accessKey)
-  form.append("subject", `New Lead from ${source}: ${name}`)
+  form.append("subject", `[DPDP Consented Lead] ${source}: ${name}`)
   form.append("from_name", "Xyphora Website")
   form.append("replyto", email)
   form.append("Name", name)
   form.append("Email", email)
   form.append("Company", company || "Not Provided")
+  form.append("DPDP_Consent", "Confirmed Affirmative Consent (DPDP Act 2023)")
 
   if (phone) form.append("Phone", phone)
   if (service) form.append("Service", service)
@@ -382,24 +455,47 @@ export async function POST(request: NextRequest) {
     )
   } catch {
     return json(
-      { message: "Message service is unavailable. Please try again later." },
+      { message: "Message service is temporarily unavailable. Please try again later." },
       502,
       limitHeaders,
     )
   }
 
-  const data = await response.json().catch(() => ({}))
-  const upstreamMessage = data && typeof data === "object" && "message" in data && typeof data.message === "string"
-    ? data.message
-    : "Message could not be sent."
-
   if (!response.ok) {
     return json(
-      { message: upstreamMessage },
+      { message: "Message delivery failed. Please try again or reach out via email." },
       response.status,
       limitHeaders,
     )
   }
 
-  return json({ message: "Message sent." }, 200, limitHeaders)
+  return json({ message: "Thank you! Your message has been sent successfully." }, 200, limitHeaders)
+}
+
+export async function GET() {
+  return new NextResponse(null, {
+    status: 405,
+    headers: { Allow: "POST", "Cache-Control": "no-store" },
+  })
+}
+
+export async function PUT() {
+  return new NextResponse(null, {
+    status: 405,
+    headers: { Allow: "POST", "Cache-Control": "no-store" },
+  })
+}
+
+export async function DELETE() {
+  return new NextResponse(null, {
+    status: 405,
+    headers: { Allow: "POST", "Cache-Control": "no-store" },
+  })
+}
+
+export async function PATCH() {
+  return new NextResponse(null, {
+    status: 405,
+    headers: { Allow: "POST", "Cache-Control": "no-store" },
+  })
 }

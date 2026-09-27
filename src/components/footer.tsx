@@ -4,52 +4,78 @@ import { Mail } from "lucide-react"
 import { Logo } from "./logo"
 import { contactEmail } from "@/lib/site"
 
+const quickLinks = [
+  { name: "Services", href: "/#services" },
+  { name: "Process", href: "/#process" },
+  { name: "Tech Stack", href: "/#tech" },
+  { name: "About", href: "/#about" },
+  { name: "Contact", href: "/#contact" },
+  { name: "Privacy Policy", href: "/privacy" },
+]
+
+const servicesList = [
+  { name: "Custom Business Websites", href: "/#services" },
+  { name: "Full-Stack Web Apps & SaaS", href: "/#services" },
+  { name: "Mobile App Development", href: "/#services" },
+  { name: "AI Chatbots & Copilots", href: "/#services" },
+  { name: "Workflow & API Automation", href: "/#services" },
+]
+
 export function Footer() {
   return (
-    <footer className="py-12 border-t border-border">
+    <footer className="py-16 border-t border-border bg-card/40">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <Logo size="md" />
-              <span className="text-xl font-bold gradient-text">Xyphora AI</span>
+              <span className="text-xl font-bold gradient-text tracking-tight">Xyphora AI</span>
             </div>
-            <p className="text-muted-foreground mb-4 max-w-md">
-              Websites, mobile applications, and AI-driven systems built with a premium, user-friendly, SEO-ready standard.
+            <p className="text-muted-foreground mb-5 max-w-md text-sm sm:text-base leading-relaxed">
+              We engineer ultra-fast, visually stunning US-standard websites, custom web applications, and tailored AI systems designed to convert visitors and scale your business.
             </p>
-            <a href={`mailto:${contactEmail}`} className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
-              <Mail className="h-4 w-4" />
-              {contactEmail}
+            <a href={`mailto:${contactEmail}`} className="inline-flex items-center gap-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+              <Mail className="h-4 w-4 text-primary" />
+              <span>{contactEmail}</span>
             </a>
           </div>
+
           <div>
-            <h3 className="font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              {["Services", "About", "Contact", "Privacy"].map((link) => (
-                <li key={link}>
+            <h3 className="font-bold text-sm uppercase tracking-wider text-foreground mb-4">Quick Links</h3>
+            <ul className="space-y-2.5">
+              {quickLinks.map((link) => (
+                <li key={link.name}>
                   <a
-                    href={link === "Privacy" ? "/privacy" : `#${link.toLowerCase()}`}
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    href={link.href}
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
-                    {link === "Privacy" ? "Privacy Policy" : link}
+                    {link.name}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
+
           <div>
-            <h3 className="font-semibold mb-4">Services</h3>
-            <ul className="space-y-2">
-              {["Website Development", "Mobile Applications", "AI-Driven Solutions", "Business Automation"].map((service) => (
-                <li key={service}>
-                  <a href="#services" className="text-muted-foreground hover:text-primary transition-colors">{service}</a>
+            <h3 className="font-bold text-sm uppercase tracking-wider text-foreground mb-4">Services</h3>
+            <ul className="space-y-2.5">
+              {servicesList.map((service) => (
+                <li key={service.name}>
+                  <a 
+                    href={service.href} 
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {service.name}
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
         </div>
-        <div className="pt-8 border-t border-border text-center text-muted-foreground text-sm">
-          <p>Copyright {new Date().getFullYear()} Xyphora AI. All rights reserved. Intelligence Evolved.</p>
+
+        <div className="pt-8 border-t border-border/60 text-center text-muted-foreground text-xs sm:text-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p>&copy; {new Date().getFullYear()} Xyphora AI. All rights reserved.</p>
+          <p className="font-medium gradient-text">Next-Gen Web Architecture &amp; AI Engineering</p>
         </div>
       </div>
     </footer>

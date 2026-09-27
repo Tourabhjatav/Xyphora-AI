@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils"
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "default" | "outline" | "ghost" | "link"
   size?: "default" | "sm" | "lg" | "icon"
@@ -29,7 +31,7 @@ export function Button({
   
   return (
     <button 
-      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
+      className={cn(baseStyles, variants[variant], sizes[size], className)}
       {...props}
     >
       {children}

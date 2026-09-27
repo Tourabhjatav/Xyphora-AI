@@ -47,6 +47,22 @@ const securityHeaders = [
     value: "same-origin",
   },
   {
+    key: "Cross-Origin-Resource-Policy",
+    value: "same-origin",
+  },
+  {
+    key: "X-Permitted-Cross-Domain-Policies",
+    value: "none",
+  },
+  {
+    key: "X-Download-Options",
+    value: "noopen",
+  },
+  {
+    key: "Origin-Agent-Cluster",
+    value: "?1",
+  },
+  {
     key: "X-DNS-Prefetch-Control",
     value: "off",
   },

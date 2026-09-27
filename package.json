@@ -11,12 +11,9 @@
     "start": "next start -p 3000",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "validate": "npm run lint && npm run typecheck && npm run build && npm audit --omit=dev",
-    "check:prod": "node scripts/check-production-env.mjs",
-    "db:push": "prisma db push",
-    "db:generate": "prisma generate",
-    "db:migrate": "prisma migrate dev",
-    "db:reset": "prisma migrate reset"
+    "validate": "npm run lint && npm run typecheck && npm run build",
+    "audit": "npm audit --omit=dev",
+    "check:prod": "node scripts/check-production-env.mjs"
   },
   "dependencies": {
     "@upstash/ratelimit": "^2.0.8",
