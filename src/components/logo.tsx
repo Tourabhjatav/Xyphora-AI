@@ -24,6 +24,13 @@ export function Logo({ className, size = "md", animated = true }: LogoProps) {
     xl: "w-14 h-14"
   }
 
+  const pixelDimensions = {
+    sm: { width: 20, height: 20 },
+    md: { width: 28, height: 28 },
+    lg: { width: 40, height: 40 },
+    xl: { width: 56, height: 56 },
+  }
+
   return (
     <motion.div
       className={cn(
@@ -59,6 +66,8 @@ export function Logo({ className, size = "md", animated = true }: LogoProps) {
       <motion.img
         src="/logo.png"
         alt="Xyphora AI Logo"
+        width={pixelDimensions[size].width}
+        height={pixelDimensions[size].height}
         className={cn("relative z-10 object-contain", iconSizes[size])}
         animate={animated ? {
           filter: ["brightness(1) contrast(1)", "brightness(1.2) contrast(1.1)", "brightness(1) contrast(1)"],

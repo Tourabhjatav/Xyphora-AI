@@ -73,6 +73,15 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        source: "/(logo.png|og-image.png|icon.png|apple-icon.png|apple-touch-icon.png|icon-192.png|icon-512.png|bicycle-loader.png|favicon-v2.ico|favicon.ico)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
         source: "/(.*)",
         headers: securityHeaders,
       },

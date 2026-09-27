@@ -1,9 +1,22 @@
 import type { Metadata, Viewport } from "next"
+import { Inter, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "../components/theme-provider"
 import { SplashScreen } from "../components/splash-screen"
 import { ConsentBanner } from "../components/consent-banner"
 import { siteUrl } from "@/lib/site"
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-geist-sans",
+  display: "swap",
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+  display: "swap",
+})
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -18,7 +31,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   // Basic Meta
   title: {
-    default: "Xyphora AI | Premium Websites, Web Applications & AI Solutions",
+    default: "Xyphora AI | Senior Web Development & AI Engineering",
     template: "%s | Xyphora AI",
   },
   description: "Xyphora AI engineers ultra-fast, US-standard websites, custom full-stack web applications, SaaS dashboards, and intelligent AI chatbots designed to scale.",
@@ -123,7 +136,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -36,6 +36,7 @@ export function Navigation() {
 
   return (
     <motion.nav
+      aria-label="Main Navigation"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}

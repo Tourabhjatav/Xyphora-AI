@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { Mail } from "lucide-react"
 import { Logo } from "./logo"
 import { contactEmail } from "@/lib/site"
@@ -7,7 +8,7 @@ import { contactEmail } from "@/lib/site"
 const quickLinks = [
   { name: "Services", href: "/#services" },
   { name: "Process", href: "/#process" },
-  { name: "Tech Stack", href: "/#tech" },
+  { name: "Tech Stack", href: "/#tech-stack" },
   { name: "About", href: "/#about" },
   { name: "Contact", href: "/#contact" },
   { name: "Privacy Policy", href: "/privacy" },
@@ -45,12 +46,12 @@ export function Footer() {
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <a
+                  <Link
                     href={link.href}
                     className="text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -61,12 +62,12 @@ export function Footer() {
             <ul className="space-y-2.5">
               {servicesList.map((service) => (
                 <li key={service.name}>
-                  <a 
+                  <Link 
                     href={service.href} 
                     className="text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
                     {service.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

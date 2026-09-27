@@ -1,6 +1,4 @@
-"use client"
-
-import { motion } from "framer-motion"
+import type { Metadata } from "next"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { 
@@ -17,18 +15,56 @@ import { contactEmail, siteUrl } from "@/lib/site"
 
 const siteHost = new URL(siteUrl).host
 
+export const metadata: Metadata = {
+  title: "Privacy Policy & DPDP Act Data Notice",
+  description: "Official Privacy Policy and Data Notice for Xyphora AI in compliance with the Digital Personal Data Protection Act, 2023 (DPDP Act, India).",
+  alternates: {
+    canonical: `${siteUrl}/privacy`,
+  },
+  openGraph: {
+    title: "Privacy Policy & DPDP Act Data Notice | Xyphora AI",
+    description: "Official Privacy Policy and Data Notice for Xyphora AI in compliance with the Digital Personal Data Protection Act, 2023 (DPDP Act, India).",
+    url: `${siteUrl}/privacy`,
+    type: "article",
+    siteName: "Xyphora AI",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy & DPDP Act Data Notice | Xyphora AI",
+    description: "Official Privacy Policy and Data Notice for Xyphora AI in compliance with the Digital Personal Data Protection Act, 2023 (DPDP Act, India).",
+  },
+}
+
+const privacyJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": siteUrl
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Privacy Policy",
+      "item": `${siteUrl}/privacy`
+    }
+  ]
+}
+
 export default function PrivacyPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(privacyJsonLd) }}
+      />
       <Navigation />
       
       <div className="pt-32 pb-24 px-6 lg:px-8 max-w-4xl mx-auto">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-500">
           <div className="inline-block p-3 rounded-2xl bg-primary/10 border border-primary/20 mb-4">
             <ShieldCheck className="w-8 h-8 text-primary" />
           </div>
@@ -43,7 +79,7 @@ export default function PrivacyPage() {
             <span>•</span>
             <span>Last Updated: September 2026</span>
           </div>
-        </motion.div>
+        </div>
 
         <div className="space-y-12 leading-relaxed">
           {/* Section 1: Data Fiduciary & Scope */}
