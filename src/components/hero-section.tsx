@@ -127,7 +127,7 @@ export function HeroSection() {
             <motion.div variants={fadeUp}>
               <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs sm:text-sm font-semibold text-primary shadow-sm backdrop-blur">
                 <Sparkles className="h-4 w-4 text-cyan-400 animate-spin-slow" />
-                <span>Next-Gen Web Architecture & AI Engineering</span>
+                <span>Indian Software Engineering • Senior Developer Team</span>
               </span>
             </motion.div>
 
@@ -142,7 +142,7 @@ export function HeroSection() {
               variants={fadeUp}
               className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 leading-relaxed"
             >
-              From custom high-converting business websites and customer portals to full-stack web applications and AI chatbots. We engineer ultra-fast, visually stunning, US-standard digital experiences designed to scale.
+              From custom high-converting business websites and customer portals to full-stack web applications and AI workflows. Handcrafted by our senior developer team—not automated AI code—delivering ultra-fast, visually stunning US-standard digital experiences designed to scale.
             </motion.p>
 
             {/* CTAs */}

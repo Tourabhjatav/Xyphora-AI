@@ -42,16 +42,16 @@ export function AboutSection() {
             className="space-y-6"
           >
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-semibold border border-primary/20">
-              About Xyphora AI
+              About Xyphora AI • Indian Software Organization
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-foreground">
-              Your <span className="gradient-text">Web Engineering</span> &amp; Digital Product Partner
+              Your <span className="gradient-text">Senior Developer Team</span> &amp; Digital Engineering Partner
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-              Xyphora AI engineers premium websites, web applications, and intelligent AI tools for modern businesses that want to stand out and convert visitors into loyal clients.
+              Xyphora AI is an Indian software development organization powered by a dedicated team of senior developers. We engineer bespoke websites, full-stack web applications, SaaS dashboards, and AI integrations—hand-crafted by seasoned engineers, not automated AI code.
             </p>
             <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-              We specialize in custom Next.js web development, strict TypeScript architectures, pixel-perfect responsive UX, and tailored AI chatbots. Every product we build is designed to be lightning-fast, secure, and effortlessly maintainable.
+              We specialize in custom Next.js development, strict TypeScript architectures, pixel-perfect responsive UX, and custom AI workflows engineered to US and global standards.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
