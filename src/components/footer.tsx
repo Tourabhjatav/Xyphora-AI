@@ -74,8 +74,8 @@ export function Footer() {
         </div>
 
         <div className="pt-8 border-t border-border/60 text-center text-muted-foreground text-xs sm:text-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>&copy; {new Date().getFullYear()} Xyphora AI (India). Handcrafted by Senior Developers. All rights reserved.</p>
-          <p className="font-medium gradient-text">Indian Software Engineering Organization</p>
+          <p>&copy; {new Date().getFullYear()} Xyphora AI. Handcrafted by Senior Developers. All rights reserved.</p>
+          <p className="font-medium gradient-text">Next-Gen Web Architecture &amp; AI Engineering</p>
         </div>
       </div>
     </footer>

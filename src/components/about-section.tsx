@@ -42,7 +42,7 @@ export function AboutSection() {
             className="space-y-6"
           >
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-semibold border border-primary/20">
-              About Xyphora AI • Indian Software Organization
+              About Xyphora AI
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-foreground">
               Your <span className="gradient-text">Senior Developer Team</span> &amp; Digital Engineering Partner

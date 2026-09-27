@@ -127,7 +127,7 @@ export function HeroSection() {
             <motion.div variants={fadeUp}>
               <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs sm:text-sm font-semibold text-primary shadow-sm backdrop-blur">
                 <Sparkles className="h-4 w-4 text-cyan-400 animate-spin-slow" />
-                <span>Indian Software Engineering • Senior Developer Team</span>
+                <span>Next-Gen Web Architecture & AI Engineering</span>
               </span>
             </motion.div>
 

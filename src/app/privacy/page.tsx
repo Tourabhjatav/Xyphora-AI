@@ -53,7 +53,7 @@ export default function PrivacyPage() {
               <h2 className="text-2xl font-bold m-0 text-foreground">1. Data Fiduciary &amp; Overview</h2>
             </div>
             <p className="text-muted-foreground mb-4">
-              <strong>Xyphora AI</strong> is an Indian software development organization and digital engineering enterprise based in India. In accordance with the <strong>Digital Personal Data Protection Act, 2023 (DPDP Act, India)</strong>, the Founder &amp; Individual Lead Developer acts as the <strong>Data Fiduciary</strong> in respect of the digital personal data collected through our official website (<a href={siteUrl} className="text-primary hover:underline">{siteHost}</a>) and client engineering consultations.
+              <strong>Xyphora AI</strong> is a digital software development organization based in India. In accordance with the <strong>Digital Personal Data Protection Act, 2023 (DPDP Act, India)</strong>, Xyphora AI acts as the <strong>Data Fiduciary</strong> in respect of the digital personal data collected through our official website (<a href={siteUrl} className="text-primary hover:underline">{siteHost}</a>) and client engineering consultations.
             </p>
             <p className="text-muted-foreground mb-4">
               All website development, full-stack web applications, SaaS dashboards, and customized digital systems are designed, architected, and hand-coded by our <strong>Senior Developer Team</strong> (not automated AI code generation). We harness AI purely as client-facing features (such as chatbots and automated workflows), while all core engineering and code quality are managed by experienced human senior developers.
@@ -190,21 +190,17 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          {/* Section 7: Grievance Redressal Officer */}
+          {/* Section 7: Grievance Redressal Mechanism */}
           <section className="bg-card/60 p-8 rounded-2xl border border-primary/30 shadow-lg text-center">
             <div className="w-12 h-12 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-4">
               <Mail className="w-6 h-6 text-primary" />
             </div>
-            <h2 className="text-2xl font-bold mb-2 text-foreground">7. Data Protection &amp; Grievance Redressal Officer</h2>
+            <h2 className="text-2xl font-bold mb-2 text-foreground">7. Grievance Redressal Mechanism</h2>
             <p className="text-muted-foreground text-sm max-w-xl mx-auto mb-6">
-              In accordance with Section 8(9) of the Digital Personal Data Protection Act, 2023 (DPDP Act, India), the designated individual Data Protection &amp; Grievance Officer for Xyphora AI is:
+              In accordance with Section 8(9) of the Digital Personal Data Protection Act, 2023, if you have any questions, concerns, or grievances regarding the processing of your personal data or wish to exercise your statutory rights as a Data Principal, please contact our Grievance Redressal channel:
             </p>
             
             <div className="inline-block text-left p-5 rounded-xl bg-background/90 border border-border shadow-sm text-sm space-y-2">
-              <p><strong className="text-foreground">Designation:</strong> Data Protection &amp; Grievance Officer</p>
-              <p><strong className="text-foreground">Status:</strong> Individual Lead Developer &amp; Founder</p>
-              <p><strong className="text-foreground">Organization:</strong> Xyphora AI (Indian Organization)</p>
-              <p><strong className="text-foreground">Jurisdiction:</strong> Republic of India</p>
               <p>
                 <strong className="text-foreground">Official Email:</strong>{" "}
                 <a href={`mailto:${contactEmail}`} className="text-primary font-semibold hover:underline">
