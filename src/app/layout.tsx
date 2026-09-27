@@ -31,7 +31,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   // Basic Meta
   title: {
-    default: "Xyphora AI | Senior Web Development & AI Engineering",
+    default: "Xyphora AI | Custom Web Development & AI Engineering",
     template: "%s | Xyphora AI",
   },
   description: "Xyphora AI engineers ultra-fast, US-standard websites, custom full-stack web applications, SaaS dashboards, and intelligent AI chatbots designed to scale.",

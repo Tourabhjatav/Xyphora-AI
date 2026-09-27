@@ -92,7 +92,7 @@ export default function PrivacyPage() {
               <strong>Xyphora AI</strong> is a digital software development organization based in India. In accordance with the <strong>Digital Personal Data Protection Act, 2023 (DPDP Act, India)</strong>, Xyphora AI acts as the <strong>Data Fiduciary</strong> in respect of the digital personal data collected through our official website (<a href={siteUrl} className="text-primary hover:underline">{siteHost}</a>) and client engineering consultations.
             </p>
             <p className="text-muted-foreground mb-4">
-              All website development, full-stack web applications, SaaS dashboards, and customized digital systems are designed, architected, and hand-coded by our <strong>Senior Developer Team</strong> (not automated AI code generation). We harness AI purely as client-facing features (such as chatbots and automated workflows), while all core engineering and code quality are managed by experienced human senior developers.
+              All website development, full-stack web applications, SaaS dashboards, and customized digital systems are engineered with strict technical quality and security standards. We harness AI purely as client-facing features (such as chatbots and automated workflows), while all core systems architecture and data protection safeguards are managed directly by our engineering team.
             </p>
             <p className="text-muted-foreground">
               We are strictly committed to safeguarding your personal data under the DPDP Act 2023, the Information Technology Act, 2000, and Indian cybersecurity rules.

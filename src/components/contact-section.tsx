@@ -87,7 +87,7 @@ export function ContactSection() {
                 Start With a <span className="gradient-text">Clear Blueprint</span>
               </h2>
               <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-                Tell us about your project vision, target timeline, and feature requirements. Our Senior Developer Team will review your specs and reply with an actionable architectural roadmap within 24 hours.
+                Tell us about your project vision, target timeline, and feature requirements. We will review your specs and reply with an actionable architectural roadmap within 24 hours.
               </p>
             </div>
 
@@ -110,7 +110,7 @@ export function ContactSection() {
                 </div>
                 <div>
                   <h3 className="font-bold text-sm text-foreground">Rapid Response Guarantee</h3>
-                  <p className="text-sm text-muted-foreground">Senior Developer Team replies within 24 business hours</p>
+                  <p className="text-sm text-muted-foreground">Detailed reply within 24 business hours</p>
                 </div>
               </motion.div>
             </div>
@@ -139,7 +139,7 @@ export function ContactSection() {
                 </div>
                 <div>
                   <h3 className="font-bold text-lg text-foreground">Request a Project Consultation</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground">Share your project specifications. Our Senior Developer Team will review your requirements.</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Share your project specifications and requirements.</p>
                 </div>
               </div>
 

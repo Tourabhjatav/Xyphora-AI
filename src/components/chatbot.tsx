@@ -36,7 +36,7 @@ export function ChatBot() {
     {
       id: "1",
       role: "bot",
-      content: "Hello! Welcome to Xyphora AI. I'm your digital engineering assistant. We are an Indian software development organization powered by a team of senior developers—building custom websites, full-stack web applications, SaaS portals, and AI workflows engineered by senior developers, not automated AI code. What are you looking to build?",
+      content: "Hello! Welcome to Xyphora AI. I'm your digital engineering assistant. We build custom websites, full-stack web applications, SaaS portals, and tailored AI workflows. What are you looking to build?",
       timestamp: new Date()
     },
   ])
@@ -364,7 +364,7 @@ export function ChatBot() {
               <div className="p-5 bg-background max-h-[480px] overflow-y-auto">
                 <h4 className="font-bold text-base text-foreground mb-1">Request a Project Consultation</h4>
                 <p className="text-xs text-muted-foreground mb-4">
-                  Share your project specifications. Our Senior Developer Team will review your requirements and reply with a complete technical roadmap within 24 hours.
+                  Share your project specifications and requirements. We will review your project and reply with a complete technical roadmap within 24 hours.
                 </p>
                 <div className="space-y-3.5">
                   <div>
@@ -462,7 +462,7 @@ export function ChatBot() {
                 </div>
                 <h4 className="font-bold text-lg text-foreground mb-1">Inquiry Received</h4>
                 <p className="text-xs sm:text-sm text-muted-foreground mb-4 leading-relaxed">
-                  Thank you! Our senior developer team will review your specifications and email you back within 24 hours.
+                  Thank you! We will review your specifications and email you back within 24 hours.
                 </p>
                 <p className="text-xs font-mono text-primary bg-primary/10 py-1.5 px-3 rounded-lg inline-block mb-6">
                   {userDetails.email}

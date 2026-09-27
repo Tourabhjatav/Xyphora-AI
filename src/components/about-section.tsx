@@ -45,10 +45,10 @@ export function AboutSection() {
               About Xyphora AI
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-foreground">
-              Your <span className="gradient-text">Senior Developer Team</span> &amp; Digital Engineering Partner
+              Your <span className="gradient-text">Web Engineering</span> &amp; Digital Product Partner
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-              Xyphora AI is an Indian software development organization powered by a dedicated team of senior developers. We engineer bespoke websites, full-stack web applications, SaaS dashboards, and AI integrations—hand-crafted by seasoned engineers, not automated AI code.
+              Xyphora AI engineers bespoke websites, full-stack web applications, SaaS dashboards, and AI integrations—delivering robust digital systems designed to scale.
             </p>
             <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
               We specialize in custom Next.js development, strict TypeScript architectures, pixel-perfect responsive UX, and custom AI workflows engineered to US and global standards.

@@ -33,7 +33,7 @@ export function Footer() {
               <span className="text-xl font-bold gradient-text tracking-tight">Xyphora AI</span>
             </div>
             <p className="text-muted-foreground mb-5 max-w-md text-sm sm:text-base leading-relaxed">
-              Xyphora AI is an Indian software development organization. Our senior developer team engineers ultra-fast, visually stunning US-standard websites, custom full-stack web applications, and tailored AI systems.
+              We engineer ultra-fast, visually stunning US-standard websites, custom full-stack web applications, and tailored AI systems designed to convert visitors and scale your business.
             </p>
             <a href={`mailto:${contactEmail}`} className="inline-flex items-center gap-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
               <Mail className="h-4 w-4 text-primary" />
@@ -75,7 +75,7 @@ export function Footer() {
         </div>
 
         <div className="pt-8 border-t border-border/60 text-center text-muted-foreground text-xs sm:text-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>&copy; {new Date().getFullYear()} Xyphora AI. Handcrafted by Senior Developers. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Xyphora AI. All rights reserved.</p>
           <p className="font-medium gradient-text">Next-Gen Web Architecture &amp; AI Engineering</p>
         </div>
       </div>

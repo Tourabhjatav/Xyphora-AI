@@ -142,7 +142,7 @@ export function HeroSection() {
               variants={fadeUp}
               className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 leading-relaxed"
             >
-              From custom high-converting business websites and customer portals to full-stack web applications and AI workflows. Handcrafted by our senior developer team—not automated AI code—delivering ultra-fast, visually stunning US-standard digital experiences designed to scale.
+              From custom high-converting business websites and customer portals to full-stack web applications and AI workflows. Engineered with precision—not generic templates—delivering ultra-fast, visually stunning US-standard digital experiences designed to scale.
             </motion.p>
 
             {/* CTAs */}

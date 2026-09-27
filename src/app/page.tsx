@@ -3,14 +3,14 @@ import { HomePageClient } from "@/components/home-page-client"
 import { contactEmail, siteUrl } from "@/lib/site"
 
 export const metadata: Metadata = {
-  title: "Xyphora AI | Senior Web Development & AI Engineering",
-  description: "Xyphora AI is a premier digital engineering organization powered by a Senior Developer Team. We engineer ultra-fast US-standard websites, custom full-stack SaaS web applications, and intelligent AI workflows.",
+  title: "Xyphora AI | Custom Web Development & AI Engineering",
+  description: "Xyphora AI is a premier digital engineering organization. We engineer ultra-fast US-standard websites, custom full-stack SaaS web applications, and intelligent AI workflows.",
   keywords: [
     "custom website development",
     "web application development",
     "Next.js web development agency",
     "full stack web development",
-    "senior developer team",
+    "custom web engineering",
     "AI chatbot engineering",
     "SaaS dashboard development",
     "responsive UI UX design",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: siteUrl,
   },
   openGraph: {
-    title: "Xyphora AI | Senior Web Development & AI Engineering",
+    title: "Xyphora AI | Custom Web Development & AI Engineering",
     description: "Ultra-fast US-standard websites, custom web applications, SaaS dashboards, and AI chatbots engineered for conversion and scalability.",
     url: siteUrl,
     siteName: "Xyphora AI",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Xyphora AI | Senior Web Development & AI Engineering",
+    title: "Xyphora AI | Custom Web Development & AI Engineering",
     description: "Ultra-fast US-standard websites, custom web applications, SaaS dashboards, and AI chatbots engineered for conversion and scalability.",
     images: ["/og-image.png"],
   },
@@ -55,7 +55,7 @@ const jsonLd = [
     "name": "Xyphora AI",
     "alternateName": ["Xyphora", "XyphoraAI"],
     "url": siteUrl,
-    "description": "High-performance website development, full-stack web applications, SaaS portals, and AI chatbot engineering handcrafted by a senior developer team.",
+    "description": "High-performance website development, full-stack web applications, SaaS portals, and AI chatbot engineering for modern businesses.",
     "inLanguage": "en-US",
     "publisher": {
       "@id": `${siteUrl}/#organization`
@@ -75,7 +75,7 @@ const jsonLd = [
     },
     "image": `${siteUrl}/og-image.png`,
     "email": contactEmail,
-    "description": "Xyphora AI is a digital engineering organization powered by a senior developer team. We engineer bespoke websites, full-stack SaaS web applications, and intelligent AI workflows.",
+    "description": "Xyphora AI is a digital engineering organization. We engineer bespoke websites, full-stack SaaS web applications, and intelligent AI workflows.",
     "areaServed": {
       "@type": "AdministrativeArea",
       "name": "Worldwide"
